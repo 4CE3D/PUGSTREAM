@@ -1,5 +1,6 @@
 package com.moviestogether.pugstream.Room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,5 +19,6 @@ public class Movie {
     private String link;
     @ManyToOne
     @JoinColumn(name = "fk_room")
+    @JsonIgnore
     private Room room;
 }

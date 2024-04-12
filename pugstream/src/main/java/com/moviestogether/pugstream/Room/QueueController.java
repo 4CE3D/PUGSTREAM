@@ -1,31 +1,46 @@
 package com.moviestogether.pugstream.Room;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/queue") // Probably needs room id
+@RequestMapping("/room/{id}/queue")
 public class QueueController {
+    @Autowired
     private QueueRepository repository;
+    @Autowired
+    private RoomRepository roomRepository;
 
     @GetMapping("/")
-    public String queuePage() {
-        return "Add your movie";
+    public ResponseEntity<?> queuePage(@PathVariable Long id) {
+        List<Movie> movies = repository.findByRoomId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(movies);
     }
 
     @PostMapping
-    public void addToQueue(@RequestBody Movie movie) {
+    public ResponseEntity<?> addToQueue(@PathVariable Long id,@RequestBody Movie movie) {
         if(movie.getLink() == null){ // Needs to be checked with db(repository)
             throw new IllegalStateException("No link provided");
-        }
+        };
+        Room room = roomRepository.findById(id).orElseThrow(() -> new IllegalStateException("Room not exists"));
+        movie.setRoom(room);
         repository.save(movie);
+        return ResponseEntity.status(HttpStatus.OK).body(movie);
     }
 
-    @DeleteMapping(path = "movieId")
-    public void deleteFromQueue(@PathVariable("movieId") Long movieId){
+    @DeleteMapping(path = "{movieId}")
+    public ResponseEntity<?> deleteFromQueue(@PathVariable("movieId") Long movieId){
         if(movieId == null) { // Needs to be checked with db(repository)
             throw new IllegalStateException("");
         }
+        Optional<Movie> deletedMovie = repository.findById(movieId);
         repository.deleteById(movieId);
+        return ResponseEntity.status(HttpStatus.OK).body(deletedMovie);
     }
 
 }
