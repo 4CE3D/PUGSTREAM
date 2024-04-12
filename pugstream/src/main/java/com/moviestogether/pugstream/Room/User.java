@@ -1,22 +1,28 @@
 package com.moviestogether.pugstream.Room;
 
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class Movie {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
-    private String link;
+    private int id;
+    private String name;
+    private Role role;
+
     @ManyToOne
     @JoinColumn(name = "fk_room")
     private Room room;
+}
+
+enum Role {
+    USER,
+    ADMIN
 }
