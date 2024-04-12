@@ -33,13 +33,13 @@ public class QueueController {
         return ResponseEntity.status(HttpStatus.OK).body(movie);
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity<?> deleteFromQueue(@RequestParam(required = false) Long id){
-        if(!repository.existsById(id)) { // Needs to be checked with db(repository)
+    @DeleteMapping("/{movieId}")
+    public ResponseEntity<?> deleteFromQueue(@PathVariable("movieId") Long movieId){
+        if(!repository.existsById(movieId)) { // Needs to be checked with db(repository)
             throw new IllegalStateException("No movie found");
         }
-        Optional<Movie> deletedMovie = repository.findById(id);
-        repository.deleteById(id);
+        Optional<Movie> deletedMovie = repository.findById(movieId);
+        repository.deleteById(movieId);
         return ResponseEntity.status(HttpStatus.OK).body(deletedMovie);
     }
 
