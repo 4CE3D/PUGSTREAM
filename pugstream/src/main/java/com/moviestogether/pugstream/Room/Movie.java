@@ -17,6 +17,6 @@ public class Movie {
     int id;
     private String link;
     @ManyToOne
-    @JoinColumn(name = "fk_queue")
-    private Queue queue;
+    @JoinColumn(name = "fk_room")
+    private Room room;
 }

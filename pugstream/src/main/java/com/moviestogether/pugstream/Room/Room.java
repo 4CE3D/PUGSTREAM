@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +19,12 @@ public class Room {
     @GeneratedValue (strategy = GenerationType.TABLE)
     private int id;
     private String name;
-    @OneToOne(mappedBy = "room")
-    private Queue queue;
+
+    @OneToMany(
+            mappedBy = "room",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Movie> movies = new ArrayList<>();
 
 }
