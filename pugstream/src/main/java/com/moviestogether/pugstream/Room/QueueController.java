@@ -22,7 +22,7 @@ public class QueueController {
         return ResponseEntity.status(HttpStatus.OK).body(movies);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<?> addToQueue(@PathVariable Long id,@RequestBody Movie movie) {
         if(movie.getLink() == null){ // Needs to be checked with db(repository)
             throw new IllegalStateException("No link provided");
@@ -33,13 +33,13 @@ public class QueueController {
         return ResponseEntity.status(HttpStatus.OK).body(movie);
     }
 
-    @DeleteMapping(path = "{movieId}")
-    public ResponseEntity<?> deleteFromQueue(@PathVariable("movieId") Long movieId){
-        if(movieId == null) { // Needs to be checked with db(repository)
-            throw new IllegalStateException("");
+    @DeleteMapping("/")
+    public ResponseEntity<?> deleteFromQueue(@RequestParam(required = false) Long id){
+        if(!repository.existsById(id)) { // Needs to be checked with db(repository)
+            throw new IllegalStateException("No movie found");
         }
-        Optional<Movie> deletedMovie = repository.findById(movieId);
-        repository.deleteById(movieId);
+        Optional<Movie> deletedMovie = repository.findById(id);
+        repository.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(deletedMovie);
     }
 
