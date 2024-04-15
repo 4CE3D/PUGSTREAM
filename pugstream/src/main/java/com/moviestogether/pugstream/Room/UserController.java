@@ -1,18 +1,44 @@
 package com.moviestogether.pugstream.Room;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.swing.text.html.Option;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@Validated
 @RequestMapping("/room/{roomId}/users")
 public class UserController {
-
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        // You can add more sophisticated parsing of the exception message if needed
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("This name is already in use.");
+    }
     @Autowired
     UserRepository repository;
 
@@ -37,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity createUserInRoom(@PathVariable Long roomId, @RequestBody User user)
+    public ResponseEntity createUserInRoom(@PathVariable Long roomId, @Valid @RequestBody User user)
     {
         Optional<Room> room = roomRepository.findById(roomId);
         if(room.isEmpty())
