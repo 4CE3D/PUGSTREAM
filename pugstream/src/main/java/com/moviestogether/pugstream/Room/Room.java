@@ -1,5 +1,6 @@
 package com.moviestogether.pugstream.Room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,14 @@ public class Room {
             orphanRemoval = true
     )
     private List<Movie> movies = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "room",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<User> users = new ArrayList<>();
 
 }

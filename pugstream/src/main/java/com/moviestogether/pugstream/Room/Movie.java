@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     private String link;
     @ManyToOne
