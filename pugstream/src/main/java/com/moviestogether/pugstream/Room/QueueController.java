@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping("/room/{id}/queue")
 public class QueueController {
     @Autowired

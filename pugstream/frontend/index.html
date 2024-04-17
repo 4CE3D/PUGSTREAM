@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room List</title>
+</head>
+<body>
+    <h1>Room List</h1>
+    <button id="createRoom">CREATE NEW ROOM</button>
+    <ul id="roomList">
+        <!-- Room list items will be dynamically added here -->
+    </ul>
+
+    <script>
+        const roomList = document.getElementById('roomList');
+        const createRoomButton = document.getElementById('createRoom');
+
+        function createRoom() {
+            const roomName = prompt('Enter the name of the room');
+            const password = prompt('Enter room password');
+            if (roomName && password) {
+                const postData = {
+                    name: roomName,
+                    password: password
+                };
+
+                fetch(`http://localhost:8080/room/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Save the token for later use
+                    const token = data.token;
+                    const room = data.room.name;
+                    const id = data.room.id;
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('room', room);
+                    localStorage.setItem('id', id);
+                    localStorage.setItem('admin', true);
+
+                    // Redirect to the room or perform any other action
+                    console.log('Created room:', data.room);
+                    window.location.href = "/accenture/room.html";
+                })
+                .catch(error => console.error('Error creating room:', error));
+            }
+        }
+
+        // Function to join a room
+        function joinRoom(roomId) {
+            const username = prompt('Enter your username:');
+            const password = prompt('Enter the room password:');
+
+            if (username && password) {
+                const postData = {
+                    name: username,
+                    password: password
+                };
+
+                fetch(`http://localhost:8080/room/${roomId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Save the token for later use
+                    const token = data.token;
+                    const room = data.room.name;
+                    const id = data.room.id;
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('room', room);
+                    localStorage.setItem('id', id);
+
+                    // Redirect to the room or perform any other action
+                    console.log('Joined room:', data.room);
+                    window.location.href = "/accenture/room.html";
+                })
+                .catch(error => console.error('Error joining room:', error));
+            }
+        }
+
+        // Fetch data from the endpoint
+        fetch('http://localhost:8080/room/')
+            .then(response => response.json())
+            .then(data => {
+                // Iterate over each room object and create list item with join button
+                data.forEach(room => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Room ID: ${room.id}, Name: ${room.name}, Password: ${room.password ?? 'None'}`;
+                    const joinButton = document.createElement('button');
+                    joinButton.textContent = 'Join';
+                    joinButton.addEventListener('click', () => joinRoom(room.id));
+                    listItem.appendChild(joinButton);
+                    roomList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching room list:', error));
+
+        createRoomButton.addEventListener('click', createRoom);
+    </script>
+</body>
+</html>

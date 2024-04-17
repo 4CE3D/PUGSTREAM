@@ -19,6 +19,7 @@ import java.util.*;
 @RestController
 @Validated
 @RequestMapping("/room")
+@CrossOrigin(maxAge = 3600)
 @AllArgsConstructor
 public class RoomController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room</title>
+</head>
+<body>
+    <h1 id="myHeading"></h1>
+
+    <div id="movie"></div>
+    <ul id="users"></ul>
+
+    <div id="adminPanel"></div>
+
+    <ul id="queue"></ul>
+
+    <script>
+        const data = localStorage.getItem('room');
+        const heading = document.getElementById('myHeading');
+        const userList = document.getElementById('users');
+        const queueList = document.getElementById('queue');
+        const movieField = document.getElementById('movie');
+
+		const id = localStorage.getItem('id');
+        const token = localStorage.getItem('token');
+
+        if (localStorage.getItem("admin")) {
+            const panel = document.getElementById("adminPanel");
+            panel.innerHTML = "<button id='addMovie'>Add Movie</button>";
+
+            const addMovieButton = document.getElementById('addMovie');
+            addMovieButton.addEventListener('click', addMovie);
+        }
+
+        function addMovie() {
+            const movieLink = prompt("Provide a link to the movie");
+            if (movieLink) {
+               
+                const postData = {
+                    link: movieLink
+                };
+
+                fetch(`http://localhost:8080/room/${id}/queue/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response if needed
+                })
+                .catch(error => console.error('Error adding movie:', error));
+            }
+        }
+
+        function handleInit() {
+            if (data) {
+                heading.textContent = data;
+                const id = localStorage.getItem('id');
+                const token = localStorage.getItem('token');
+
+                fetch(`http://localhost:8080/room/${id}/queue/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Display the first movie
+                    fetch(`http://localhost:8080/videoplayer/play?videoLink=${data[0].link}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/html',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        movieField.innerHTML = html;
+                    });
+
+                    // Display the queue list
+                    data.forEach(movie => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Link: ${movie.link}`;
+                        queueList.append(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching queue list:', error));
+
+                fetch(`http://localhost:8080/room/${id}/users/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Display the list of users
+                    data.forEach(user => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Name: ${user.name}`;
+                        userList.append(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching user list:', error));
+            } else {
+                heading.textContent = "No data found";
+            }
+        }
+
+        handleInit();
+    </script>
+</body>
+</html>

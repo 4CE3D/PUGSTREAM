@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@CrossOrigin(maxAge = 3600)
 @RequestMapping("/videoplayer")
 public class VideoController {
 
