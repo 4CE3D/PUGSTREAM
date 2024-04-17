@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/room/{roomId}/users")
+@CrossOrigin(maxAge = 3600)
 public class UserController {
 
     @Autowired
