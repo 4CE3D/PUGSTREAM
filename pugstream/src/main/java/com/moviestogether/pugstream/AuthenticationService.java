@@ -7,6 +7,7 @@ import com.moviestogether.pugstream.Room.UserRepository;
 import com.moviestogether.pugstream.auth.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.moviestogether.pugstream.Room.*;
@@ -28,8 +29,9 @@ public class AuthenticationService {
         Optional<Room> room = roomRepository.findById(roomId);
         if(room.isEmpty())
             return new AuthenticationResponse();
-
-        if(password.equals(room.get().getPassword()))
+        BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
+        if(bcrypt.matches(password,room.get().getPassword()))
+     //   if(password.equals(room.get().getPassword()))
         {
             User user = new User();
             user.setName(name);
