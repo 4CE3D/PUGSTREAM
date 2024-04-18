@@ -43,4 +43,11 @@ public class Room {
     )
     private List<User> users = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "room",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Chat> chat = new ArrayList<>();
 }
