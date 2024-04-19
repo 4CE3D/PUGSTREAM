@@ -370,6 +370,15 @@
                                       </div>
                                       <button id="addToQueue" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: 0px; margin-right: 0px; width: calc(100% + 0px); height: 40px; flex-shrink: 0;">Add To Queue</button>
                                    </div>
+                                   <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; margin-right: 30px; margin-top: 13px; height: calc(100% - 13px); flex-shrink: 0; align-self: center;">
+                                       <div id="chatBox" style="display: flex; position: relative; flex-direction: column; align-items: center; opacity: 1; border-width: 2px; border-color: rgb(154, 168, 130); border-style: solid; justify-content: flex-end; background-color: rgb(222, 243, 187); width: 200px; height: 230px; flex-shrink: 0; margin-top: auto; overflow-y: auto;">
+
+                                       </div>
+                                       <div style="width: 200px; height: 40px;">
+                                           <input type='text' id='message' placeholder='Your message...' style="font-family: Roboto-Medium; font-size: 12px; width: 150px; height: 40px; ">
+                                           <button id="send-message-button" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: absolute; bottom: 0px; right: 0px; opacity: 1; border-radius: 4px; padding: 0px 24px; margin-right: 0px; margin-right: 0px; width: 50px; height: 40px; flex-shrink: 0;">Send</button>
+                                       </div>
+                                   </div>
                                 </div>
                                 <div id="userList" style="display: flex; position: relative; flex-flow: wrap; align-items: flex-start; opacity: 1; background-color: rgb(255, 246, 215); place-content: flex-start space-between; margin-top: 60px; margin-bottom: 70px; margin-left: 0px; padding-left: 8px; padding-right: 8px; width: calc(100% + 0px); height: 100%; flex-shrink: 1; flex-grow: 100;">
                                    <div style="display: flex; position: relative; flex-flow: wrap; align-items: center; opacity: 1; place-content: flex-start space-between; margin: 25px 100px 100px 15px; width: 100px; height: 20px; flex-shrink: 0;">
@@ -412,6 +421,7 @@
         const data = localStorage.getItem('room');
         const id = localStorage.getItem('id');
         const token = localStorage.getItem('token');
+        let username = localStorage.getItem('username');
 
         const heading = document.getElementById('roomName');
         const roomIdHeading = document.getElementById('roomID');
@@ -419,6 +429,9 @@
         const userList = document.getElementById('userList');
         const addButton = document.getElementById('addToQueue');
         const movieField = document.getElementById('movieField');
+        const chatBox = document.getElementById('chatBox');
+        const sendMessageButton = document.getElementById('send-message-button');
+        const messageField = document.getElementById('message');
 
         function addMovie(){
             console.log("wazzup");
@@ -480,7 +493,37 @@
             
         }
 
+        function sendMessage() {
+            console.log("send")
+            if (!username) {
+                username = 'PUG';
+            }
+            const message = document.getElementById('message').value;
+
+            if(message) {
+                const postData = {
+                    username: username,
+                    message: message
+                }
+                fetch(`http://localhost:8080/room/${id}/chat/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    handleInit();
+                })
+                .catch(error => console.error('Error sending message:', error));
+                document.getElementById('message').value = '';
+            }
+        }
+
         function handleInit() {
+            console.log("handle init")
             if (data) {
                 heading.textContent = data;
                 roomIdHeading.textContent = id;
@@ -543,6 +586,35 @@
                     });
                 })
                 .catch(error => console.error('Error fetching user list:', error));
+
+                fetch(`http://localhost:8080/room/${id}/chat/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    chatBox.innerHTML = '';
+                    data.forEach(chat => {
+                        const divItem = document.createElement('div');
+                        divItem.classList.add('chat-message');
+                        divItem.textContent = `${chat.username}: ${chat.message}`
+                        divItem.style.display = 'inline-block';
+                        divItem.style.outline = '1px solid black';
+                        divItem.style.fontFamily = 'Roboto-Medium';
+                        divItem.style.fontSize = '16px';
+                        divItem.style.position = 'relative';
+                        divItem.style.bottom = '0px';
+                        divItem.style.minHeight = 'fit-content';
+                        divItem.style.width = '100%';
+                        divItem.style.boxSizing = 'border-box';
+                        divItem.style.paddingLeft = '2px';
+                        chatBox.append(divItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching chat:', error));
             } else {
                 heading.textContent = "No data found";
             }
@@ -552,6 +624,12 @@
 
         setInterval(handleInit, 5000);
         addButton.addEventListener('click', addMovie);
+        sendMessageButton.addEventListener('click', sendMessage);
+        messageField.addEventListener('keydown', (e) => {
+            if(e.keyCode === 13) {
+                sendMessage();
+            }
+        });
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
