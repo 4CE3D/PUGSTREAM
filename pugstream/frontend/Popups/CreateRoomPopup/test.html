@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Example</title>
+  <link rel="stylesheet" href="testy.css"> </head>
+<body>
+  <button id="open-popup">Open Popup</button>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <header>Create room!</header>
+      <div class="form-group">
+        <input type="checkbox" id="private-room" name="private-room">
+        <label for="private-room">Private</label>
+      </div>
+      <div class="form-group">
+        <label for="room-name">Room Name</label>
+        <input type="text" id="room-name" name="room-name" placeholder="Enter room name">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password">
+      </div>
+      <div class="buttons">
+        <button id="import-image">Import image</button>
+        <button id="enter">Enter</button>
+        <button id="close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"> </script>
+</body>
+</html>

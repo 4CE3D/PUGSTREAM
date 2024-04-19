@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <menu name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PUGSTREAM</title>
+  <link rel="stylesheet" href="CreateRoom.css">
+  <script defer src="crtrm.js"></script>
+  <button id="create" class="create">Create Room</button>
+</head>
+<body>
+    <div class="container" id="create-room">
+      <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column; isolation: isolate;">
+        <div class="popup" style="display: flex; position: fixed; align-items: flex-start; opacity: 1; width: 100%; height: 100%; background-color: white;flex-shrink: 0; left: 0px; top: 0px; z-index: 10;">
+          <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(0, 0, 0, 0.498); width: 100%; height: 100%; flex-shrink: 0; ">
+            <div class="outline" style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(206, 206, 206); border-radius: 10px; width: 400px; height: 320px; flex-shrink: 0; align-self: center; margin-top: auto; margin-bottom: auto;">
+              <div class="field">
+                <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                  <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; padding-top: 13px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                    <div style="display: flex; position: absolute; flex-direction: row; align-items: flex-start; opacity: 1; justify-content: flex-start; margin-left: 0px; margin-bottom: 10px; padding-left: 15px; padding-right: 20px; width:100%; height: 40px; flex-shrink: 1; flex-grow: 100;">
+                      <div class="visual-text" style="font-family: Roboto-Bold; font-size: 18px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; margin-top: 9px; margin-left: 8px; width: 100%; flex-shrink: 1; flex-grow: 100; white-space: pre-wrap; overflow-wrap: anywhere;">Create room!</div>
+                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; margin-top: 10px; flex-shrink: 0;">
+                        <div style="display: flex; align-items: center; position: relative; opacity: 1; margin-right: 40px;">
+                          <div class="controls-pointer checkbox" style="display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; width: 40px; height: 22px;">
+                            <input type="checkbox" id="input-c9dac6f3-ad87-4300-4185-0d607bb19173" class="controls-checkbox" style="width: 40px; height: 22px;">
+                          </div>
+                          <label class="controls-pointer" for="input-c9dac6f3-ad87-4300-4185-0d607bb19173" style="margin-left: 12px; font-family: Roboto-Regular; font-size: 16px; color: rgb(31, 31, 31); line-height: 150%; text-transform: none;">Private</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="position: relative; opacity: 1; margin-top: 50px; margin-left: 5px; margin-right: 5px; width: calc(100% - 10px); flex-shrink: 0; display: flex; flex-direction: column;">
+                      <label for="input-5ddbcf45-680f-2328-adf5-9a72e9b3d81d" style="font-family: Roboto-Medium; font-size: 12px; color: rgb(76, 76, 76); line-height: 120%; text-transform: none; margin-bottom: 4px;">Enter your room name below</label>
+                      <div style="display: flex; align-items: center; background-color: transparent;">
+                        <input type="text" id="input-5ddbcf45-680f-2328-adf5-9a72e9b3d81d" class="controls-textinput" placeholder="Room Name" style="font-family: Roboto-Regular; font-size: 16px; color: rgb(31, 31, 31); line-height: 150%; text-transform: none; width: 100%; height: 100%;">
+                      </div>
+                    </div>
+                    <div style="position: relative; opacity: 1; margin-top: 25px; margin-left: 5px; margin-right: 5px; width: calc(100% - 10px); flex-shrink: 0; display: flex; flex-direction: column;">
+                      <label for="input-0e664d43-3984-1bf6-d11b-eda15026051c" style="font-family: Roboto-Medium; font-size: 12px; color: rgb(76, 76, 76); line-height: 120%; text-transform: none; margin-bottom: 4px;">Enter password for the room</label>
+                      <div style="display: flex; align-items: center; background-color: transparent;">
+                        <input type="text" id="input-0e664d43-3984-1bf6-d11b-eda15026051c" class="controls-textinput" placeholder="Password" style="font-family: Roboto-Regular; font-size: 16px; color: rgb(31, 31, 31); line-height: 150%; text-transform: none; width: 100%; height: 100%;">
+                      </div>
+                    </div>
+                    <div class="buttons">
+                      <div class="import">
+                        <div class="field">
+                          <div class="inputWrapper">
+                            <input type="file" id="input-file" accept="image/*">
+                          </div>
+                        </div> 
+                      </div>
+                      <button class="enter" id="enter">Enter</button>
+                      <button class="cancel" id="cancel">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>  
