@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en" class="wf-robotomedium-n4-active wf-active wf-robotoregular-n4-active wf-robotobold-n4-active wf-robotolight-n4-active"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>RoomPage</title>
+
+
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      .body-scroll {
+        overflow: hidden auto;
+      }
+
+      img {
+        -webkit-user-drag: none;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+
+      #root {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+      }
+
+      .body-scroll > #root {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+        overflow: initial;
+        position: initial;
+      }
+
+      @font-face {
+        font-family: "Open Sans";
+        src: url(ndl_assets/OpenSans-Regular.ttf);
+      }
+
+      @font-face {
+        font-family: "Open Sans";
+        src: url(ndl_assets/OpenSans-Bold.ttf);
+        font-weight: bold;
+      }
+    </style>
+  <style>.ndl-visual-text {
+  font-weight: 400;
+  margin: 0;
+}
+
+.ndl-controls-pointer,
+.ndl-controls-pointer * {
+  cursor: pointer;
+}
+
+.ndl-controls-abs-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+/** Button **/
+.ndl-controls-button {
+  outline: none;
+  border: none;
+  color: white;
+  background-color: black;
+  padding: 5px 20px 5px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ndl-controls-button:disabled {
+  cursor: default;
+}
+
+/** Deprecated checkbox **/
+.ndl-controls-checkbox {
+  margin: 0;
+  border: 1px solid #000000;
+  border-radius: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.ndl-controls-checkbox:checked {
+  background-color: #000000;
+}
+
+.ndl-controls-checkbox:disabled {
+  cursor: default;
+}
+
+/** Deprecated radio button **/
+.ndl-controls-radiobutton {
+  margin: 0;
+  border: 1px solid #000000;
+  border-radius: 16px;
+  background-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  width: 32px;
+  height: 32px;
+  display: block;
+  cursor: pointer;
+}
+
+.ndl-controls-radiobutton:checked {
+  background-color: #000000;
+}
+
+.ndl-controls-radiobutton:disabled {
+  cursor: default;
+}
+
+/** New radio button **/
+.ndl-controls-radio-2 {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ndl-controls-radio-2:disabled {
+  cursor: default;
+}
+
+/** New checkbox **/
+.ndl-controls-checkbox-2 {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ndl-controls-checkbox-2:disabled {
+  cursor: default;
+}
+
+/** Options **/
+.ndl-controls-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #000000;
+  border-radius: 0;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+
+  /* Stack above custom arrow */
+  z-index: 1;
+
+  /* Remove dropdown arrow in IE10 & IE11
+      @link https://www.filamentgroup.com/lab/select-css.html */
+  /*  &::-ms-expand {
+      display: none;
+    }*/
+
+  /* Remove focus outline, will add on alternate element */
+  outline: none;
+}
+
+.ndl-controls-select:disabled {
+  cursor: default;
+}
+
+/** Range **/
+.ndl-controls-range2 {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ndl-controls-range2::-webkit-slider-thumb {
+  height: 100%;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ndl-controls-range2::-moz-range-thumb {
+  height: 100%;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ndl-controls-range2::-webkit-slider-runnable-track {
+  border: none;
+  height: 100%;
+}
+
+.ndl-controls-range2::-moz-range-track {
+  border: none;
+  height: 100%;
+}
+
+.ndl-controls-range2:disabled {
+  cursor: default;
+}
+
+/* Old range */
+
+.ndl-controls-range {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+}
+
+.ndl-controls-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+
+.ndl-controls-range::-webkit-slider-runnable-track {
+  background: #f0f0f0;
+  border: none;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  top: 4px;
+  margin-top: 5px;
+}
+
+.ndl-controls-range:focus::-webkit-slider-runnable-track {
+  background: #f0f0f0;
+}
+
+.ndl-controls-range::-moz-range-track {
+  background: #f0f0f0;
+  border: none;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 5px 0;
+  color: transparent;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-fill-lower {
+  background: #f0f0f0;
+  border: none;
+}
+.ndl-controls-range::-ms-fill-upper {
+  background: #f0f0f0;
+  border: none;
+}
+
+/** Field Set **/
+.ndl-controls-fieldset {
+  outline: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/** Text Input **/
+.ndl-controls-textinput {
+  outline: none;
+  border-style: none;
+  background-color: transparent;
+}
+
+.ndl-controls-textinput::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+</style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Bold'; src: url('/fonts/Roboto/Roboto-Bold.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Medium'; src: url('/fonts/Roboto/Roboto-Medium.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Light'; src: url('/fonts/Roboto/Roboto-Light.ttf'); }
+</style></head>
+  <body class="body-scroll" style="cursor: initial; zoom: 1;">
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+
+    <div id="root">
+        <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column;">
+           <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column; isolation: isolate;">
+              <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 0; background-color: rgb(255, 255, 255); min-height: 100vh;">
+                 <div style="flex: 1 1 0%; align-self: stretch; position: relative; display: flex; flex-direction: column; background-color: transparent;">
+                    <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; flex: 100 1 100%; width: 100%; height: 100%;">
+                       <div style="display: flex; flex-direction: column; position: relative; align-items: flex-start; flex: 1 0 0%; align-self: stretch;">
+                          <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 255, 255); width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                             <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(222, 243, 187); width: 100%; height: 90px; flex-shrink: 0;">
+                                <div class="ndl-visual-text " style="font-family: Roboto-Light; font-size: 20px; color: rgb(0, 0, 0); line-height: 120%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: flex-end; transform: scale(3, 3); margin-top: 25px; mix-blend-mode: normal; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">PUGSTREAM</div>
+                                <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 14px; color: rgba(0, 0, 0, 0.498); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; width: 100%; flex-shrink: 0; margin-top: auto; white-space: pre-wrap; overflow-wrap: anywhere;">PRESS ABOVE TO RETURN TO MAIN</div>
+                             </div>
+                             <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 246, 215); width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                <div style="display: flex; position: relative; flex-direction: row; align-items: center; opacity: 1; justify-content: flex-start; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                   <div style="display: flex; position: relative; flex-direction: row; align-items: flex-start; opacity: 1; margin-left: 72px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                      <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 20px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: right; justify-content: flex-end; margin: 5px 5px 0px 0px; align-items: center; width: 50%; flex-shrink: 1; flex-grow: 50; white-space: pre-wrap; overflow-wrap: anywhere;">Room Name:</div>
+                                      <div id="roomName" class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 20px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: left; justify-content: flex-start; margin-top: 5px; width: 100%; height: calc(100% - 5px); flex-shrink: 1; flex-grow: 100; white-space: pre-wrap; overflow-wrap: anywhere;">NAME</div>
+                                   </div>
+                                   <div style="display: flex; position: relative; flex-direction: row; align-items: flex-start; opacity: 1; margin-left: 0px; justify-content: flex-start; padding-left: 66px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; margin-right: auto; align-self: flex-end;">
+                                      <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 20px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: right; justify-content: flex-end; align-items: center; margin-top: 5px; margin-left: 0px; margin-right: 5px; width: 100%; height: calc(100% - 5px); flex-shrink: 1; flex-grow: 100; white-space: pre-wrap; overflow-wrap: anywhere;">Room ID:</div>
+                                      <div id="roomID" class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 20px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; margin-top: 5px; text-align: left; justify-content: flex-start; width: 100%; height: calc(100% - 5px); flex-shrink: 1; flex-grow: 100; white-space: pre-wrap; overflow-wrap: anywhere;">#ID</div>
+                                   </div>
+                                </div>
+                                <div style="display: flex; position: relative; flex-direction: row; align-items: flex-start; opacity: 1; justify-content: space-around; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                    <input type="hidden" id="movieLinkHidden" value="https://v.redd.it/83l6sz34dppc1/DASH_96.mp4">
+                                    <div id="movieField">
+                                   <video volume="100" src="https://v.redd.it/83l6sz34dppc1/DASH_96.mp4" poster="data:image/jpeg;base64,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" controls="" loop="" playsinline="" style="display: block; object-fit: contain; opacity: 1; position: relative; border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; margin-left: 44px; margin-top: 15px; width: 50%; height: calc(100% - 15px); flex-shrink: 0; align-self: center; object-position: 75% 75%;"></video>
+                                   </div>
+                                   <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; margin-right: 30px; margin-top: 13px; height: calc(100% - 13px); flex-shrink: 0; align-self: center;">
+                                      <div id="queueList" style="display: flex; position: relative; flex-direction: column; align-items: center; opacity: 1; border-width: 2px; border-color: rgb(154, 168, 130); border-style: solid; justify-content: space-evenly; background-color: rgb(222, 243, 187); width: 200px; height: 230px; flex-shrink: 0; margin-top: auto; overflow-y: auto;">
+                                         
+                                      </div>
+                                      <button id="addToQueue" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: 0px; margin-right: 0px; width: calc(100% + 0px); height: 40px; flex-shrink: 0;">Add To Queue</button>
+                                   </div>
+                                </div>
+                                <div id="userList" style="display: flex; position: relative; flex-flow: wrap; align-items: flex-start; opacity: 1; background-color: rgb(255, 246, 215); place-content: flex-start space-between; margin-top: 60px; margin-bottom: 70px; margin-left: 0px; padding-left: 8px; padding-right: 8px; width: calc(100% + 0px); height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                   <div style="display: flex; position: relative; flex-flow: wrap; align-items: center; opacity: 1; place-content: flex-start space-between; margin: 25px 100px 100px 15px; width: 100px; height: 20px; flex-shrink: 0;">
+                                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; white-space: pre-wrap; overflow-wrap: anywhere;">USERNAME</div>
+                                      </div>
+                                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                         <div style="flex-shrink: 0; position: relative; display: flex; opacity: 1; transform: translateY(5px); align-self: center;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="110" height="110">
+                                               <path d="M 54.99990400689114 8.377298854611581e-11 A 55 55 0 1 0 55 0 L 55 55 L 54.99990400689114 8.377298854611581e-11" fill="#DEF3BB"></path>
+                                            </svg>
+                                         </div>
+                                         <div style="flex-shrink: 0; position: relative; display: flex; opacity: 1; transform: translateY(-100px); align-self: center;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+                                               <path d="M 49.9999127335374 7.615597041876754e-11 A 50 50 0 1 0 50 0 L 50 50 L 49.9999127335374 7.615597041876754e-11" fill="#D4D4D4"></path>
+                                            </svg>
+                                         </div>
+                                         <img alt="" src="/00020-2973338981.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 300%; max-height: 300%; transform: translateY(-180px); border-radius: 50px; width: 100%;">
+                                      </div>
+                                      <div style="display: flex; position: relative; flex-direction: row; align-items: flex-start; opacity: 1; border-width: 2px; border-color: rgb(212, 212, 212); border-style: solid; background-color: rgb(255, 255, 255); transform: translateX(100px) translateY(-10px); margin-left: 8px; width: 100px; height: 100px; flex-shrink: 0; border-radius: 10px;">
+                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; transform: translateX(0px); text-align: left; justify-content: flex-start; align-items: flex-start; width: 100px; height: 100px; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere; margin-left: 3px; margin-right: 2px;">Yap Yap yap yap</div>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                             <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(222, 243, 187); width: 100%; height: 100px; flex-shrink: 0;"></div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     
+    <script src="/react.production.min.js"></script>
+    <script src="/react-dom.production.min.js"></script>
+
+    <script>
+        const data = localStorage.getItem('room');
+        const id = localStorage.getItem('id');
+        const token = localStorage.getItem('token');
+
+        const heading = document.getElementById('roomName');
+        const roomIdHeading = document.getElementById('roomID');
+        const queueList = document.getElementById('queueList');
+        const userList = document.getElementById('userList');
+        const addButton = document.getElementById('addToQueue');
+        const movieField = document.getElementById('movieField');
+
+        function addMovie(){
+            console.log("wazzup");
+            const movieLink = prompt('Enter link:');
+            if(movieLink) {
+                const postData = {
+                    link: movieLink
+                };
+
+                fetch(`http://localhost:8080/room/${id}/queue/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    handleInit();
+                })
+                .catch(error => console.error('Error adding movie:', error));
+            }
+
+            
+        }
+
+        function deleteLink(movieId){
+            fetch(`http://localhost:8080/room/${id}/queue/${movieId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }).then(response => response.json())
+            .then(data => {
+                handleInit();
+            });
+            
+        }
+
+        function playMovie(movieLink) {
+            let current = document.getElementById("movieLinkHidden").value;
+            if(current !== movieLink)
+            {
+                fetch(`http://localhost:8080/videoplayer/play?videoLink=${movieLink}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'text/html',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => response.text())
+                    .then(html => {
+                        movieField.innerHTML = html;
+                        document.getElementById("movieLinkHidden").value = movieLink;
+                    });
+            }
+            
+        }
+
+        function handleInit() {
+            if (data) {
+                heading.textContent = data;
+                roomIdHeading.textContent = id;
+                fetch(`http://localhost:8080/room/${id}/queue/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    queueList.innerHTML = '';
+                    playMovie(data[0].link);
+                    data.forEach(movie => {
+                        const divItem = document.createElement('div');
+                        divItem.innerHTML = `<div style="display: flex; position: relative; flex-flow: row; align-items: center; opacity: 1; padding: 5px 10px; margin-bottom: 4px; border-radius: 4px; cursor: pointer; justify-content: space-around; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                            <div class="ndl-visual-icon" style="user-select: none; position: relative; opacity: 1; flex-shrink: 0;">
+                                               <div style="line-height: 0;"><span class="material-icons" style="font-size: 24px; color: rgb(31, 31, 31); line-height: 1;">account_circle</span></div>
+                                            </div>
+                                            <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(31, 31, 31); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; margin-left: 8px; flex-shrink: 0; white-space: pre;">${movie.id}</div>
+                                            <button onclick="deleteLink(${movie.id});" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px; min-width: 80px; margin-left: 11px; margin-right: 2px; width: 10px; height: 20px; flex-shrink: 0;">Remove</button>
+                                         </div>`;
+                        //listItem.textContent = `Link: ${movie.link}`;
+                        queueList.append(divItem);
+                    })
+                });
+
+                fetch(`http://localhost:8080/room/${id}/users/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    userList.innerHTML = ''; 
+                    // Display the list of users
+                    data.forEach(user => {
+                        const divItem = document.createElement('div');
+                        divItem.innerHTML = `<div style="display: flex; position: relative; flex-flow: wrap; align-items: center; opacity: 1; place-content: flex-start space-between; margin: 25px 100px 100px 15px; width: 100px; height: 20px; flex-shrink: 0;">
+                                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; white-space: pre-wrap; overflow-wrap: anywhere;">${user.name}</div>
+                                      </div>
+                                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                         <div style="flex-shrink: 0; position: relative; display: flex; opacity: 1; transform: translateY(5px); align-self: center;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="110" height="110">
+                                               <path d="M 54.99990400689114 8.377298854611581e-11 A 55 55 0 1 0 55 0 L 55 55 L 54.99990400689114 8.377298854611581e-11" fill="#DEF3BB"></path>
+                                            </svg>
+                                         </div>
+                                         <div style="flex-shrink: 0; position: relative; display: flex; opacity: 1; transform: translateY(-100px); align-self: center;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+                                               <path d="M 49.9999127335374 7.615597041876754e-11 A 50 50 0 1 0 50 0 L 50 50 L 49.9999127335374 7.615597041876754e-11" fill="#D4D4D4"></path>
+                                            </svg>
+                                         </div>
+                                         <img alt="" src="https://media.discordapp.net/attachments/1228237867940319243/1230161174482391190/image.png?ex=66324fdf&is=661fdadf&hm=cec5fce57bffd88571ea0dc63c118837ff3496ef691558e51a820f1e1d405dad&=&format=webp&quality=lossless&width=1000&height=1000" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 300%; max-height: 300%; transform: translateY(-180px); border-radius: 50px; width: 100%;">
+                                      </div>`;
+                        userList.append(divItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching user list:', error));
+            } else {
+                heading.textContent = "No data found";
+            }
+        }
+
+        handleInit();
+
+        setInterval(handleInit, 5000);
+        addButton.addEventListener('click', addMovie);
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+    <script type="application/javascript">
+      window.__noodl_modules = [];
+      window.Noodl = {
+        defineModule: function (m) {
+          window.__noodl_modules.push(m);
+        },
+        deployed: false,
+        Env: {}
+      };
+    </script>
+
+    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+
+
+    <script src="/noodl.viewer.js"></script>
+    <script type="application/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const root = document.getElementById('root');
+            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+        });
+    </script>
+  
+<div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body></html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>RoomPage</title>
+
+
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      .body-scroll {
+        overflow: hidden auto;
+      }
+
+      img {
+        -webkit-user-drag: none;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+
+      #root {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+      }
+
+      .body-scroll > #root {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+        overflow: initial;
+        position: initial;
+      }
+
+      @font-face {
+        font-family: "Open Sans";
+        src: url(ndl_assets/OpenSans-Regular.ttf);
+      }
+
+      @font-face {
+        font-family: "Open Sans";
+        src: url(ndl_assets/OpenSans-Bold.ttf);
+        font-weight: bold;
+      }
+    </style>
+  <style>.ndl-visual-text {
+  font-weight: 400;
+  margin: 0;
+}
+
+.ndl-controls-pointer,
+.ndl-controls-pointer * {
+  cursor: pointer;
+}
+
+.ndl-controls-abs-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+/** Button **/
+.ndl-controls-button {
+  outline: none;
+  border: none;
+  color: white;
+  background-color: black;
+  padding: 5px 20px 5px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ndl-controls-button:disabled {
+  cursor: default;
+}
+
+/** Deprecated checkbox **/
+.ndl-controls-checkbox {
+  margin: 0;
+  border: 1px solid #000000;
+  border-radius: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.ndl-controls-checkbox:checked {
+  background-color: #000000;
+}
+
+.ndl-controls-checkbox:disabled {
+  cursor: default;
+}
+
+/** Deprecated radio button **/
+.ndl-controls-radiobutton {
+  margin: 0;
+  border: 1px solid #000000;
+  border-radius: 16px;
+  background-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  width: 32px;
+  height: 32px;
+  display: block;
+  cursor: pointer;
+}
+
+.ndl-controls-radiobutton:checked {
+  background-color: #000000;
+}
+
+.ndl-controls-radiobutton:disabled {
+  cursor: default;
+}
+
+/** New radio button **/
+.ndl-controls-radio-2 {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ndl-controls-radio-2:disabled {
+  cursor: default;
+}
+
+/** New checkbox **/
+.ndl-controls-checkbox-2 {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ndl-controls-checkbox-2:disabled {
+  cursor: default;
+}
+
+/** Options **/
+.ndl-controls-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #000000;
+  border-radius: 0;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+
+  /* Stack above custom arrow */
+  z-index: 1;
+
+  /* Remove dropdown arrow in IE10 & IE11
+      @link https://www.filamentgroup.com/lab/select-css.html */
+  /*  &::-ms-expand {
+      display: none;
+    }*/
+
+  /* Remove focus outline, will add on alternate element */
+  outline: none;
+}
+
+.ndl-controls-select:disabled {
+  cursor: default;
+}
+
+/** Range **/
+.ndl-controls-range2 {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ndl-controls-range2::-webkit-slider-thumb {
+  height: 100%;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ndl-controls-range2::-moz-range-thumb {
+  height: 100%;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ndl-controls-range2::-webkit-slider-runnable-track {
+  border: none;
+  height: 100%;
+}
+
+.ndl-controls-range2::-moz-range-track {
+  border: none;
+  height: 100%;
+}
+
+.ndl-controls-range2:disabled {
+  cursor: default;
+}
+
+/* Old range */
+
+.ndl-controls-range {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+}
+
+.ndl-controls-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+
+.ndl-controls-range::-webkit-slider-runnable-track {
+  background: #f0f0f0;
+  border: none;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  top: 4px;
+  margin-top: 5px;
+}
+
+.ndl-controls-range:focus::-webkit-slider-runnable-track {
+  background: #f0f0f0;
+}
+
+.ndl-controls-range::-moz-range-track {
+  background: #f0f0f0;
+  border: none;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 5px 0;
+  color: transparent;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-fill-lower {
+  background: #f0f0f0;
+  border: none;
+}
+.ndl-controls-range::-ms-fill-upper {
+  background: #f0f0f0;
+  border: none;
+}
+
+/** Field Set **/
+.ndl-controls-fieldset {
+  outline: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/** Text Input **/
+.ndl-controls-textinput {
+  outline: none;
+  border-style: none;
+  background-color: transparent;
+}
+
+.ndl-controls-textinput::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+</style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Bold'; src: url('/fonts/Roboto/Roboto-Bold.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Medium'; src: url('/fonts/Roboto/Roboto-Medium.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Light'; src: url('/fonts/Roboto/Roboto-Light.ttf'); }
+</style></head>
+<body class="body-scroll" style="cursor: initial; zoom: 1;">
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+
+    <script src="/react.production.min.js"></script>
+    <script src="/react-dom.production.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+    <script type="application/javascript">
+      window.__noodl_modules = [];
+      window.Noodl = {
+        defineModule: function (m) {
+          window.__noodl_modules.push(m);
+        },
+        deployed: false,
+        Env: {}
+      };
+    </script>
+
+    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+
+
+    <script src="/noodl.viewer.js"></script>
+    <script type="application/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const root = document.getElementById('root');
+            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+        });
+    </script>
+  
+<div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body>
+<html lang="en" class="wf-robotomedium-n4-active wf-active wf-robotoregular-n4-active wf-robotobold-n4-active wf-robotolight-n4-active"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>RoomPage</title>
+
+
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      .body-scroll {
+        overflow: hidden auto;
+      }
+
+      img {
+        -webkit-user-drag: none;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+
+      #root {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+      }
+
+      .body-scroll > #root {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+        overflow: initial;
+        position: initial;
+      }
+
+      @font-face {
+        font-family: "Open Sans";
+        src: url(ndl_assets/OpenSans-Regular.ttf);
+      }
+
+      @font-face {
+        font-family: "Open Sans";
+        src: url(ndl_assets/OpenSans-Bold.ttf);
+        font-weight: bold;
+      }
+    </style>
+  <style>.ndl-visual-text {
+  font-weight: 400;
+  margin: 0;
+}
+
+.ndl-controls-pointer,
+.ndl-controls-pointer * {
+  cursor: pointer;
+}
+
+.ndl-controls-abs-center {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}
+
+/** Button **/
+.ndl-controls-button {
+  outline: none;
+  border: none;
+  color: white;
+  background-color: black;
+  padding: 5px 20px 5px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ndl-controls-button:disabled {
+  cursor: default;
+}
+
+/** Deprecated checkbox **/
+.ndl-controls-checkbox {
+  margin: 0;
+  border: 1px solid #000000;
+  border-radius: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.ndl-controls-checkbox:checked {
+  background-color: #000000;
+}
+
+.ndl-controls-checkbox:disabled {
+  cursor: default;
+}
+
+/** Deprecated radio button **/
+.ndl-controls-radiobutton {
+  margin: 0;
+  border: 1px solid #000000;
+  border-radius: 16px;
+  background-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  width: 32px;
+  height: 32px;
+  display: block;
+  cursor: pointer;
+}
+
+.ndl-controls-radiobutton:checked {
+  background-color: #000000;
+}
+
+.ndl-controls-radiobutton:disabled {
+  cursor: default;
+}
+
+/** New radio button **/
+.ndl-controls-radio-2 {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ndl-controls-radio-2:disabled {
+  cursor: default;
+}
+
+/** New checkbox **/
+.ndl-controls-checkbox-2 {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.ndl-controls-checkbox-2:disabled {
+  cursor: default;
+}
+
+/** Options **/
+.ndl-controls-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #000000;
+  border-radius: 0;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+
+  /* Stack above custom arrow */
+  z-index: 1;
+
+  /* Remove dropdown arrow in IE10 & IE11
+      @link https://www.filamentgroup.com/lab/select-css.html */
+  /*  &::-ms-expand {
+      display: none;
+    }*/
+
+  /* Remove focus outline, will add on alternate element */
+  outline: none;
+}
+
+.ndl-controls-select:disabled {
+  cursor: default;
+}
+
+/** Range **/
+.ndl-controls-range2 {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ndl-controls-range2::-webkit-slider-thumb {
+  height: 100%;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ndl-controls-range2::-moz-range-thumb {
+  height: 100%;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ndl-controls-range2::-webkit-slider-runnable-track {
+  border: none;
+  height: 100%;
+}
+
+.ndl-controls-range2::-moz-range-track {
+  border: none;
+  height: 100%;
+}
+
+.ndl-controls-range2:disabled {
+  cursor: default;
+}
+
+/* Old range */
+
+.ndl-controls-range {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5px;
+}
+
+.ndl-controls-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+
+.ndl-controls-range::-webkit-slider-runnable-track {
+  background: #f0f0f0;
+  border: none;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  top: 4px;
+  margin-top: 5px;
+}
+
+.ndl-controls-range:focus::-webkit-slider-runnable-track {
+  background: #f0f0f0;
+}
+
+.ndl-controls-range::-moz-range-track {
+  background: #f0f0f0;
+  border: none;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 5px 0;
+  color: transparent;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+}
+
+.ndl-controls-range::-ms-fill-lower {
+  background: #f0f0f0;
+  border: none;
+}
+.ndl-controls-range::-ms-fill-upper {
+  background: #f0f0f0;
+  border: none;
+}
+
+/** Field Set **/
+.ndl-controls-fieldset {
+  outline: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/** Text Input **/
+.ndl-controls-textinput {
+  outline: none;
+  border-style: none;
+  background-color: transparent;
+}
+
+.ndl-controls-textinput::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+</style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Bold'; src: url('/fonts/Roboto/Roboto-Bold.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Medium'; src: url('/fonts/Roboto/Roboto-Medium.ttf'); }
+</style><style type="text/css">@font-face { font-family: 'Roboto-Light'; src: url('/fonts/Roboto/Roboto-Light.ttf'); }
+</style></head>
+  <body class="body-scroll" style="cursor: initial; zoom: 1;">
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <script src="/react.production.min.js"></script>
+    <script src="/react-dom.production.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+    <script type="application/javascript">
+      window.__noodl_modules = [];
+      window.Noodl = {
+        defineModule: function (m) {
+          window.__noodl_modules.push(m);
+        },
+        deployed: false,
+        Env: {}
+      };
+    </script>
+
+    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+
+
+    <script src="/noodl.viewer.js"></script>
+    <script type="application/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const root = document.getElementById('root');
+            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+        });
+    </script>
+  
+<div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body></html>
