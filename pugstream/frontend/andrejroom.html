@@ -602,7 +602,8 @@
                         divItem.classList.add('chat-message');
                         divItem.textContent = `${chat.username}: ${chat.message}`
                         divItem.style.display = 'inline-block';
-                        divItem.style.outline = '1px solid black';
+                        divItem.style.borderBottom = '1px solid';
+                        divItem.style.borderColor = 'rgba(0, 0, 0, 0.5)';
                         divItem.style.fontFamily = 'Roboto-Medium';
                         divItem.style.fontSize = '16px';
                         divItem.style.position = 'relative';
@@ -612,6 +613,7 @@
                         divItem.style.boxSizing = 'border-box';
                         divItem.style.paddingLeft = '2px';
                         chatBox.append(divItem);
+                        chatBox.scrollTop = chatBox.scrollHeight;
                     });
                 })
                 .catch(error => console.error('Error fetching chat:', error));
