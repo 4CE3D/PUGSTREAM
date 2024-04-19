@@ -22,8 +22,11 @@ public class ChatController {
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User principal = (User)authentication.getPrincipal();
-
-        return principal.getRoom().getId() == roomId && authentication.getAuthorities().toString().equals("[ADMIN]");
+        if(principal.getRoom().getId() == roomId) {
+            return authentication.getAuthorities().toString().equals("[ADMIN]") || authentication.getAuthorities().toString().equals("[USER]");
+        } else {
+            return false;
+        }
     }
 
     private boolean getUserRoom(long roomId)

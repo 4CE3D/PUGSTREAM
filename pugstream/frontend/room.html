@@ -17,25 +17,23 @@
 
     <div id="chatBox"></div>
 
-    <ul id="chat"></ul>
-
     <script>
         const data = localStorage.getItem('room');
         const heading = document.getElementById('myHeading');
         const userList = document.getElementById('users');
         const queueList = document.getElementById('queue');
         const movieField = document.getElementById('movie');
-        const chatList = document.getElementById('chat')
+        const chatBox = document.getElementById('chatBox');
 
 		const id = localStorage.getItem('id');
         const token = localStorage.getItem('token');
+        let username = localStorage.getItem('username');
 
         if (localStorage.getItem("admin")) {
             const panel = document.getElementById("adminPanel");
             panel.innerHTML = "<button id='addMovie'>Add Movie</button>";
             const chatBox = document.getElementById("chatBox");
-            chatBox.innerHTML += "<input type='text' id='username' placeholder='Username...'>";
-            chatBox.innerHTML += "<input type='text' id='message' placeholder='Your message...'>";;
+            chatBox.innerHTML += "<input type='text' id='message' placeholder='Your message...'>";
             chatBox.innerHTML += "<button id='send-message-button'>Send</button>";
 
             const addMovieButton = document.getElementById('addMovie');
@@ -43,6 +41,12 @@
 
             const sendMessageButton = document.getElementById('send-message-button');
             sendMessageButton.addEventListener('click', sendMessage);
+
+            const messageField = document.getElementById('message');
+            messageField.addEventListener('keydown', (e) => {
+                if(e.keyCode === 13) {
+                    sendMessage();
+            }
         }
 
         function addMovie() {
@@ -70,8 +74,11 @@
         }
 
         function sendMessage() {
-            const username = document.getElementById('username').value;
+            if (!username) {
+                username = 'PUG';
+            }
             const message = document.getElementById('message').value;
+
             if(message) {
                 const postData = {
                     username: username,
@@ -158,9 +165,10 @@
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(chat => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${chat.username}: ${chat.message}`;
-                        chatList.append(listItem);
+                        const divElem = document.createElement('div');
+                        divElem.classList.add('chat-message');
+                        divElem.textContent = `${chat.username}: ${chat.message}`
+                        chatBox.append(divElem);
                     });
                 })
                 .catch(error => console.error('Error fetching chat:', error));
