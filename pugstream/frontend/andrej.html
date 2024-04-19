@@ -7,57 +7,86 @@
 
     <title>Main</title>
 
-
-
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-      }
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: white;
+        }
 
-      .body-scroll {
-        overflow: hidden auto;
-      }
+        .body-scroll {
+          overflow: hidden auto;
+        }
+  .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+          }
+          .modal-content {
+              background-color: #fefefe;
+              margin: 15% auto; /* 15% from the top and centered */
+              padding: 20px;
+              border: 1px solid #888;
+              width: 80%; /* Could be more or less, depending on screen size */
+          }
+          .close {
+              color: #aaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+          }
+          .close:hover,
+          .close:focus {
+              color: black;
+              text-decoration: none;
+              cursor: pointer;
+          }
 
-      img {
-        -webkit-user-drag: none;
-      }
 
-      * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      }
+        img {
+          -webkit-user-drag: none;
+        }
 
-      #root {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        position: fixed;
-      }
+        * {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
 
-      .body-scroll > #root {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        flex-direction: column;
-        overflow: initial;
-        position: initial;
-      }
+        #root {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          position: fixed;
+        }
 
-      @font-face {
-        font-family: "Open Sans";
-        src: url(ndl_assets/OpenSans-Regular.ttf);
-      }
+        .body-scroll > #root {
+          width: 100%;
+          height: auto;
+          min-height: 100vh;
+          flex-direction: column;
+          overflow: initial;
+          position: initial;
+        }
 
-      @font-face {
-        font-family: "Open Sans";
-        src: url(ndl_assets/OpenSans-Bold.ttf);
-        font-weight: bold;
-      }
+        @font-face {
+          font-family: "Open Sans";
+          src: url(ndl_assets/OpenSans-Regular.ttf);
+        }
+
+        @font-face {
+          font-family: "Open Sans";
+          src: url(ndl_assets/OpenSans-Bold.ttf);
+          font-weight: bold;
+        }
     </style>
-  <style>.ndl-visual-text {
+    <style>.ndl-visual-text {
   font-weight: 400;
   margin: 0;
 }
@@ -328,7 +357,7 @@
   color: inherit;
   opacity: 0.5;
 }
-</style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
+    </style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Bold'; src: url('/fonts/Roboto/Roboto-Bold.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Medium'; src: url('/fonts/Roboto/Roboto-Medium.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Light'; src: url('/fonts/Roboto/Roboto-Light.ttf'); }
@@ -336,169 +365,221 @@
     .input-3338c281-cc9b-89b8-06d7-214135c825d2::placeholder {
         opacity: 0.65;
     }
-    </style></head>
-  <body class="body-scroll" style="cursor: initial; zoom: 1;">
-    <noscript> You need to enable JavaScript to run this app. </noscript>
+</style></head>
+<body class="body-scroll" style="cursor: initial; zoom: 1;">
+<noscript> You need to enable JavaScript to run this app. </noscript>
 
-    <div id="root">
-        <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column;">
-           <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column; isolation: isolate;">
-              <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 0; background-color: rgb(255, 255, 255); min-height: 100vh;">
-                 <div style="flex: 1 1 0%; align-self: stretch; position: relative; display: flex; flex-direction: column; background-color: transparent;">
+<div id="root">
+    <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column;">
+        <div style="margin: 0px; padding: 0px; min-height: 100vh; align-self: stretch; display: flex; flex-direction: column; isolation: isolate;">
+            <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 0; background-color: rgb(255, 255, 255); min-height: 100vh;">
+                <div style="flex: 1 1 0%; align-self: stretch; position: relative; display: flex; flex-direction: column; background-color: transparent;">
                     <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; flex: 100 1 100%; width: 100%; height: 100%;">
-                       <div style="display: flex; flex-direction: column; position: relative; align-items: flex-start; flex: 1 0 0%; align-self: stretch;">
-                          <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 255, 255); width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
-                             <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(222, 243, 187); width: 100%; height: 80px; flex-shrink: 0;">
-                                <div class="ndl-visual-text " style="font-family: Roboto-Light; font-size: 20px; color: rgb(0, 0, 0); line-height: 120%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: flex-end; transform: scale(3, 3); margin-top: 25px; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">PUGSTREAM</div>
-                             </div>
-                             <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 246, 215); width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
-                                <div noodl-style-tag="inputWrapper" style="display: flex; align-items: center; background-color: rgb(255, 255, 255); border-width: 1px; border-color: rgb(76, 76, 76); border-style: solid; border-radius: 4px; padding-left: 12px; padding-right: 8px; position: relative; opacity: 1; margin-top: 10px; margin-bottom: 20px; flex-shrink: 0; align-self: center; height: 40px;"><span class="material-icons" style="user-select: none; font-size: 20px; color: rgb(76, 76, 76); margin-right: 4px;">search</span><input type="text" id="input-3338c281-cc9b-89b8-06d7-214135c825d2" class="ndl-controls-textinput input-3338c281-cc9b-89b8-06d7-214135c825d2" placeholder="Search room here" noodl-style-tag="input" value="" style="font-family: Roboto-Regular; font-size: 16px; color: rgb(31, 31, 31); line-height: 150%; text-transform: none; text-align: left; width: 100%; height: 100%;"></div>
-                                <div style="display: flex; position: relative; flex-flow: row; align-items: center; opacity: 1; justify-content: space-evenly; padding-left: 0px; column-gap: 10px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;"><button id="createRoom" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: 0px; margin-bottom: 20px; width: 100px; height: 40px; flex-shrink: 0;">Create Room</button><button class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(253, 110, 110); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: -100px; margin-bottom: 20px; margin-right: -100px; mix-blend-mode: normal; width: 300px; height: 40px; flex-shrink: 0;">Join Random Room!</button><button class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: 0px; margin-bottom: 20px; width: 100px; height: 40px; flex-shrink: 0;">Join Room</button></div>
-                                <div id="gridRooms" style="display: flex; position: relative; flex-flow: wrap; align-items: flex-start; opacity: 1; place-content: flex-start space-between; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                        <div style="display: flex; flex-direction: column; position: relative; align-items: flex-start; flex: 1 0 0%; align-self: stretch;">
+                            <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 255, 255); width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(222, 243, 187); width: 100%; height: 80px; flex-shrink: 0;">
+                                    <div class="ndl-visual-text " style="font-family: Roboto-Light; font-size: 20px; color: rgb(0, 0, 0); line-height: 120%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: flex-end; transform: scale(3, 3); margin-top: 25px; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">PUGSTREAM</div>
                                 </div>
-                                <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;"></div>
-                             </div>
-                             <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(222, 243, 187); width: 100%; height: 200px; flex-shrink: 0;">
-                                <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 20px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">FEEL FREE TO SUPPORT US!</div>
-                                <div class="ndl-visual-text " style="font-family: Roboto-Light; font-size: 13px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: flex-start; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">We accept donations above $5 only!</div>
-                                <div style="display: flex; position: relative; flex-direction: row; align-items: flex-start; opacity: 1; justify-content: space-evenly; margin-top: 20px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;"><img alt="" src="/Media/Images/chrome_2lf0lBeIWu-removebg-preview.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 100px; max-height: 100px;"><img alt="" src="/Media/Images/Revolut-Logo.wine.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 100px; max-height: 100px; margin-top: 10px;"><img alt="" src="/Media/Images/patreon-logo-png-transparent.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px;"><img alt="" src="/Media/Images/steam-logo-transparent.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px; margin-bottom: 0px; margin-top: 4px;"><img alt="" src="/Media/Images/unnamed.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px; margin-top: 3px;"><img alt="" src="/Media/Images/bitcoin-btc-logo.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px; margin-top: 3px;"></div>
-                             </div>
-                          </div>
-                       </div>
+                                <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 246, 215); width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                    <div noodl-style-tag="inputWrapper" style="display: flex; align-items: center; background-color: rgb(255, 255, 255); border-width: 1px; border-color: rgb(76, 76, 76); border-style: solid; border-radius: 4px; padding-left: 12px; padding-right: 8px; position: relative; opacity: 1; margin-top: 10px; margin-bottom: 20px; flex-shrink: 0; align-self: center; height: 40px;"><span class="material-icons" style="user-select: none; font-size: 20px; color: rgb(76, 76, 76); margin-right: 4px;">search</span><input type="text" id="input-3338c281-cc9b-89b8-06d7-214135c825d2" class="ndl-controls-textinput input-3338c281-cc9b-89b8-06d7-214135c825d2" placeholder="Search room here" noodl-style-tag="input" value="" style="font-family: Roboto-Regular; font-size: 16px; color: rgb(31, 31, 31); line-height: 150%; text-transform: none; text-align: left; width: 100%; height: 100%;"></div>
+                                    <div style="display: flex; position: relative; flex-flow: row; align-items: center; opacity: 1; justify-content: space-evenly; padding-left: 0px; column-gap: 10px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;"><button id="createRoom" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: 0px; margin-bottom: 20px; width: 100px; height: 40px; flex-shrink: 0;">Create Room</button><button class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(253, 110, 110); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: -100px; margin-bottom: 20px; margin-right: -100px; mix-blend-mode: normal; width: 300px; height: 40px; flex-shrink: 0;">Join Random Room!</button><button class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 4px; padding: 0px 24px; min-width: 80px; margin-left: 0px; margin-bottom: 20px; width: 100px; height: 40px; flex-shrink: 0;">Join Room</button></div>
+                                    <div id="gridRooms" style="display: flex; position: relative; flex-flow: wrap; align-items: flex-start; opacity: 1; place-content: flex-start space-between; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;">
+                                    </div>
+                                    <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;"></div>
+                                </div>
+                                <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(222, 243, 187); width: 100%; height: 200px; flex-shrink: 0;">
+                                    <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 20px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">FEEL FREE TO SUPPORT US!</div>
+                                    <div class="ndl-visual-text " style="font-family: Roboto-Light; font-size: 13px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: flex-start; width: 100%; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">We accept donations above $5 only!</div>
+                                    <div style="display: flex; position: relative; flex-direction: row; align-items: flex-start; opacity: 1; justify-content: space-evenly; margin-top: 20px; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100;"><img alt="" src="/Media/Images/chrome_2lf0lBeIWu-removebg-preview.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 100px; max-height: 100px;"><img alt="" src="/Media/Images/Revolut-Logo.wine.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 100px; max-height: 100px; margin-top: 10px;"><img alt="" src="/Media/Images/patreon-logo-png-transparent.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px;"><img alt="" src="/Media/Images/steam-logo-transparent.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px; margin-bottom: 0px; margin-top: 4px;"><img alt="" src="/Media/Images/unnamed.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px; margin-top: 3px;"><img alt="" src="/Media/Images/bitcoin-btc-logo.png" style="display: block; flex-shrink: 0; object-fit: contain; opacity: 1; position: relative; max-width: 90px; max-height: 90px; margin-top: 3px;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-              </div>
-           </div>
+                </div>
+            </div>
         </div>
-     </div>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="roomForm">
+                <p><input type="text" id="roomName" placeholder="Enter the name of the room" required></p>
+                <p>
+                    <input type="radio" name="roomType" value="public" checked> Public
+                    <input type="radio" name="roomType" value="private"> Private
+                </p>
+                <p id="passwordField" style="display:none;"><input type="password" id="roomPassword" placeholder="Enter room password"></p>
+                <p><button type="submit">Create Room</button></p>
+            </form>
+        </div>
+    </div>
 
-     <script>
-        const gridRooms = document.getElementById("gridRooms");
-        const createRoomButton = document.getElementById('createRoom');
+</div>
 
-        function createRoom() {
-            const roomName = prompt('Enter the name of the room');
-            const password = prompt('Enter room password');
-            if (roomName && password) {
-                const postData = {
-                    name: roomName,
-                    password: password
-                };
+<script>
+    const gridRooms = document.getElementById("gridRooms");
+    const createRoomButton = document.getElementById('createRoom');
 
-                fetch(`http://localhost:8080/room/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Save the token for later use
-                    const token = data.token;
-                    const room = data.room.name;
-                    const id = data.room.id;
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('room', room);
-                    localStorage.setItem('id', id);
-                    localStorage.setItem('admin', true);
+    document.getElementById('createRoom').addEventListener('click', function() {
+        document.getElementById('myModal').style.display = "block";
+    });
 
-                    // Redirect to the room or perform any other action
-                    console.log('Created room:', data.room);
-                    window.location.href = "/accenture/andrejroom.html";
-                })
-                .catch(error => console.error('Error creating room:', error));
-            }
-        }
+    document.getElementsByClassName('close')[0].addEventListener('click', function() {
+        document.getElementById('myModal').style.display = "none";
+    });
 
-        // Function to join a room
-        function joinRoom(roomId) {
-            const username = prompt('Enter your username:');
-            const password = prompt('Enter the room password:');
-
-            if (username && password) {
-                const postData = {
-                    name: username,
-                    password: password
-                };
-
-                fetch(`http://localhost:8080/room/${roomId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Save the token for later use
-                    const token = data.token;
-                    const room = data.room.name;
-                    const id = data.room.id;
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('room', room);
-                    localStorage.setItem('id', id);
-                    localStorage.setItem('username', username);
-
-                    // Redirect to the room or perform any other action
-                    console.log('Joined room:', data.room);
-                    window.location.href = "/accenture/andrejroom.html";
-                })
-                .catch(error => console.error('Error joining room:', error));
-            }
-        }
-
-        fetch('http://localhost:8080/room/')
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(room => {
-                    const divItem = document.createElement('div');
-                    divItem.innerHTML =`<div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
-                                      <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 30px; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">${room.name}</div>
-                                      <img src="https://media.discordapp.net/attachments/1228237867940319243/1230161847953395802/image.png?ex=6632507f&is=661fdb7f&hm=36219ecef5515561af04d76c74c151fa33f7c1ab762914ad6fb106dd4a0573ff&=&format=webp&quality=lossless&width=517&height=523" alt="" style="display: block; flex-shrink: 1; object-fit: contain; opacity: 1; position: relative; border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; border-radius: 5px; width: 100%; height: 100%; flex-grow: 100;">
-                                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 60px; flex-shrink: 0;">
-                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; align-self: center; white-space: pre-wrap; overflow-wrap: anywhere;">${room.password ? 'Private' : 'Public'}</div>
-                                      </div>
-                                      <button onclick="joinRoom(${room.id});" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 3px; padding: 0px 24px; min-width: 80px; width: 100%; height: 40px; flex-shrink: 0;">Enter Room</button>
-                                   </div>`;
-
-                    
-                    gridRooms.appendChild(divItem);
-                });
-            })
-            .catch(error => console.error('Error fetching room list:', error));
-
-            createRoomButton.addEventListener('click', createRoom);
-    </script>
-     
-    <script src="/react.production.min.js"></script>
-    <script src="/react-dom.production.min.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-
-
-    <script type="application/javascript">
-      window.__noodl_modules = [];
-      window.Noodl = {
-        defineModule: function (m) {
-          window.__noodl_modules.push(m);
-        },
-        deployed: false,
-        Env: {}
-      };
-    </script>
-
-    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
-
-
-    <script src="/noodl.viewer.js"></script>
-    <script type="application/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            const root = document.getElementById('root');
-            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+    const radioButtons = document.querySelectorAll('input[name="roomType"]');
+    const passwordField = document.getElementById('passwordField');
+    radioButtons.forEach(button => {
+        button.addEventListener('change', function() {
+            passwordField.style.display = this.value === 'private' ? 'block' : 'none';
         });
-    </script>
-  
+    });
+
+    document.getElementById('roomForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const roomName = document.getElementById('roomName').value;
+        const roomType = document.querySelector('input[name="roomType"]:checked').value;
+        const roomPassword = roomType === 'private' ? document.getElementById('roomPassword').value : '';
+        const postData = {
+            name: roomName,
+            type: roomType,
+            password: roomPassword
+        };
+
+        fetch('http://localhost:8080/room/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postData)
+        }).then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        }).then(data => {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('room', data.room.name);
+            localStorage.setItem('id', data.room.id);
+            localStorage.setItem('admin', true);
+            console.log('Created room:', data.room);
+            window.location.href = "/accenture/room.html";
+        }).catch(error => {
+            console.error('Error creating room:', error);
+        });
+        document.getElementById('myModal').style.display = "none";
+    });
+
+
+    // Function to join a room
+     function joinRoom(roomId) {
+const username = prompt('Enter your username:');
+if (!username) {
+    alert('Username is required');
+    return; // Exit if no username is entered
+}
+
+fetch(`http://localhost:8080/room/info/${roomId}`)
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Failed to fetch room info');
+    }
+    return response.json();
+})
+.then(roomInfo => {
+    if (roomInfo.type === 'private') {
+        const password = prompt('Enter your password for this private room:');
+        if (!password) {
+
+            throw new Error('Password required!'); // Prevent further execution
+        }
+
+        return makeRoomRequest(roomId, username, password);
+    } else {
+        return makeRoomRequest(roomId, username); // For public rooms, no password needed
+    }
+})
+.then(data => {
+    if (!data) throw new Error('No response data available');
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('room', data.room.name);
+    localStorage.setItem('id', data.room.id);
+    console.log('Joined room:', data.room);
+    window.location.href = "/accenture/room.html"; // Adjust the redirect URL as needed
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert(error.message);  // Provide user feedback on the error
+});
+}
+
+function makeRoomRequest(roomId, username, password = '') {
+const postData = {
+    name: username,
+    password: password
+};
+return fetch(`http://localhost:8080/room/${roomId}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(postData)
+}).then(response => {
+    if (!response.ok) {
+        throw new Error('Wrong password!');
+    }
+    return response.json();
+});
+}
+
+
+    fetch('http://localhost:8080/room/')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(room => {
+                const divItem = document.createElement('div');
+                divItem.innerHTML =`<div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
+                                  <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 30px; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">${room.name}</div>
+                                  <img src="https://media.discordapp.net/attachments/1228237867940319243/1230161847953395802/image.png?ex=6632507f&is=661fdb7f&hm=36219ecef5515561af04d76c74c151fa33f7c1ab762914ad6fb106dd4a0573ff&=&format=webp&quality=lossless&width=517&height=523" alt="" style="display: block; flex-shrink: 1; object-fit: contain; opacity: 1; position: relative; border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; border-radius: 5px; width: 100%; height: 100%; flex-grow: 100;">
+                                  <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 60px; flex-shrink: 0;">
+                                     <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; align-self: center; white-space: pre-wrap; overflow-wrap: anywhere;">${room.password ? 'Private' : 'Public'}</div>
+                                  </div>
+                                  <button onclick="joinRoom(${room.id});" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 3px; padding: 0px 24px; min-width: 80px; width: 100%; height: 40px; flex-shrink: 0;">Enter Room</button>
+                               </div>`;
+
+
+                gridRooms.appendChild(divItem);
+            });
+        })
+        .catch(error => console.error('Error fetching room list:', error));
+
+        createRoomButton.addEventListener('click', createRoom);
+</script>
+
+<script src="/react.production.min.js"></script>
+<script src="/react-dom.production.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+
+<script type="application/javascript">
+    window.__noodl_modules = [];
+    window.Noodl = {
+      defineModule: function (m) {
+        window.__noodl_modules.push(m);
+      },
+      deployed: false,
+      Env: {}
+    };
+</script>
+
+<script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+
+
+<script src="/noodl.viewer.js"></script>
+<script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const root = document.getElementById('root');
+        window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+    });
+</script>
+
 <div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body></html>
 <head>
     <meta charset="utf-8">
@@ -511,54 +592,54 @@
 
 
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-      }
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: white;
+        }
 
-      .body-scroll {
-        overflow: hidden auto;
-      }
+        .body-scroll {
+          overflow: hidden auto;
+        }
 
-      img {
-        -webkit-user-drag: none;
-      }
+        img {
+          -webkit-user-drag: none;
+        }
 
-      * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      }
+        * {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
 
-      #root {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        position: fixed;
-      }
+        #root {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          position: fixed;
+        }
 
-      .body-scroll > #root {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        flex-direction: column;
-        overflow: initial;
-        position: initial;
-      }
+        .body-scroll > #root {
+          width: 100%;
+          height: auto;
+          min-height: 100vh;
+          flex-direction: column;
+          overflow: initial;
+          position: initial;
+        }
 
-      @font-face {
-        font-family: "Open Sans";
-        src: url(ndl_assets/OpenSans-Regular.ttf);
-      }
+        @font-face {
+          font-family: "Open Sans";
+          src: url(ndl_assets/OpenSans-Regular.ttf);
+        }
 
-      @font-face {
-        font-family: "Open Sans";
-        src: url(ndl_assets/OpenSans-Bold.ttf);
-        font-weight: bold;
-      }
+        @font-face {
+          font-family: "Open Sans";
+          src: url(ndl_assets/OpenSans-Bold.ttf);
+          font-weight: bold;
+        }
     </style>
-  <style>.ndl-visual-text {
+    <style>.ndl-visual-text {
   font-weight: 400;
   margin: 0;
 }
@@ -829,7 +910,7 @@
   color: inherit;
   opacity: 0.5;
 }
-</style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
+    </style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Bold'; src: url('/fonts/Roboto/Roboto-Bold.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Medium'; src: url('/fonts/Roboto/Roboto-Medium.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Light'; src: url('/fonts/Roboto/Roboto-Light.ttf'); }
@@ -837,37 +918,37 @@
     .input-3338c281-cc9b-89b8-06d7-214135c825d2::placeholder {
         opacity: 0.65;
     }
-    </style></head>
+</style></head>
 <body class="body-scroll" style="cursor: initial; zoom: 1;">
-    <noscript> You need to enable JavaScript to run this app. </noscript>
+<noscript> You need to enable JavaScript to run this app. </noscript>
 
-    <script src="/react.production.min.js"></script>
-    <script src="/react-dom.production.min.js"></script>
+<script src="/react.production.min.js"></script>
+<script src="/react-dom.production.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
-    <script type="application/javascript">
-      window.__noodl_modules = [];
-      window.Noodl = {
-        defineModule: function (m) {
-          window.__noodl_modules.push(m);
-        },
-        deployed: false,
-        Env: {}
-      };
-    </script>
+<script type="application/javascript">
+    window.__noodl_modules = [];
+    window.Noodl = {
+      defineModule: function (m) {
+        window.__noodl_modules.push(m);
+      },
+      deployed: false,
+      Env: {}
+    };
+</script>
 
-    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+<script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
 
 
-    <script src="/noodl.viewer.js"></script>
-    <script type="application/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            const root = document.getElementById('root');
-            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
-        });
-    </script>
-  
+<script src="/noodl.viewer.js"></script>
+<script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const root = document.getElementById('root');
+        window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+    });
+</script>
+
 <div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body>
 <html lang="en" class="wf-robotoregular-n4-active wf-active wf-robotobold-n4-active wf-robotomedium-n4-active wf-robotolight-n4-active"><head>
     <meta charset="utf-8">
@@ -880,54 +961,54 @@
 
 
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-      }
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: white;
+        }
 
-      .body-scroll {
-        overflow: hidden auto;
-      }
+        .body-scroll {
+          overflow: hidden auto;
+        }
 
-      img {
-        -webkit-user-drag: none;
-      }
+        img {
+          -webkit-user-drag: none;
+        }
 
-      * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      }
+        * {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
 
-      #root {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        position: fixed;
-      }
+        #root {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          position: fixed;
+        }
 
-      .body-scroll > #root {
-        width: 100%;
-        height: auto;
-        min-height: 100vh;
-        flex-direction: column;
-        overflow: initial;
-        position: initial;
-      }
+        .body-scroll > #root {
+          width: 100%;
+          height: auto;
+          min-height: 100vh;
+          flex-direction: column;
+          overflow: initial;
+          position: initial;
+        }
 
-      @font-face {
-        font-family: "Open Sans";
-        src: url(ndl_assets/OpenSans-Regular.ttf);
-      }
+        @font-face {
+          font-family: "Open Sans";
+          src: url(ndl_assets/OpenSans-Regular.ttf);
+        }
 
-      @font-face {
-        font-family: "Open Sans";
-        src: url(ndl_assets/OpenSans-Bold.ttf);
-        font-weight: bold;
-      }
+        @font-face {
+          font-family: "Open Sans";
+          src: url(ndl_assets/OpenSans-Bold.ttf);
+          font-weight: bold;
+        }
     </style>
-  <style>.ndl-visual-text {
+    <style>.ndl-visual-text {
   font-weight: 400;
   margin: 0;
 }
@@ -1198,7 +1279,7 @@
   color: inherit;
   opacity: 0.5;
 }
-</style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
+    </style><style type="text/css">@font-face { font-family: 'Roboto-Regular'; src: url('/fonts/Roboto/Roboto-Regular.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Bold'; src: url('/fonts/Roboto/Roboto-Bold.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Medium'; src: url('/fonts/Roboto/Roboto-Medium.ttf'); }
 </style><style type="text/css">@font-face { font-family: 'Roboto-Light'; src: url('/fonts/Roboto/Roboto-Light.ttf'); }
@@ -1206,35 +1287,35 @@
     .input-3338c281-cc9b-89b8-06d7-214135c825d2::placeholder {
         opacity: 0.65;
     }
-    </style></head>
-  <body class="body-scroll" style="cursor: initial; zoom: 1;">
-    <noscript> You need to enable JavaScript to run this app. </noscript>
+</style></head>
+<body class="body-scroll" style="cursor: initial; zoom: 1;">
+<noscript> You need to enable JavaScript to run this app. </noscript>
 
-    <script src="/react.production.min.js"></script>
-    <script src="/react-dom.production.min.js"></script>
+<script src="/react.production.min.js"></script>
+<script src="/react-dom.production.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
-    <script type="application/javascript">
-      window.__noodl_modules = [];
-      window.Noodl = {
-        defineModule: function (m) {
-          window.__noodl_modules.push(m);
-        },
-        deployed: false,
-        Env: {}
-      };
-    </script>
+<script type="application/javascript">
+    window.__noodl_modules = [];
+    window.Noodl = {
+      defineModule: function (m) {
+        window.__noodl_modules.push(m);
+      },
+      deployed: false,
+      Env: {}
+    };
+</script>
 
-    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+<script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
 
 
-    <script src="/noodl.viewer.js"></script>
-    <script type="application/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            const root = document.getElementById('root');
-            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
-        });
-    </script>
-  
+<script src="/noodl.viewer.js"></script>
+<script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const root = document.getElementById('root');
+        window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
+    });
+</script>
+
 <div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body></html>

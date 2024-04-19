@@ -4,108 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room List</title>
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Room List</h1>
-    <button id="createRoom">CREATE NEW ROOM</button>
-    <ul id="roomList">
-        <!-- Room list items will be dynamically added here -->
-    </ul>
+<h1>Room List</h1>
+<button id="createRoom">CREATE NEW ROOM</button>
+<ul id="roomList">
+    <!-- Room list items will be dynamically added here -->
+</ul>
 
-    <script>
-        const roomList = document.getElementById('roomList');
-        const createRoomButton = document.getElementById('createRoom');
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="roomForm">
+            <p><input type="text" id="roomName" placeholder="Enter the name of the room" required></p>
+            <p>
+                <input type="radio" name="roomType" value="public" checked> Public
+                <input type="radio" name="roomType" value="private"> Private
+            </p>
+            <p id="passwordField" style="display:none;"><input type="password" id="roomPassword" placeholder="Enter room password"></p>
+            <p><button type="submit">Create Room</button></p>
+        </form>
+    </div>
+</div>
 
-        function createRoom() {
-            const roomName = prompt('Enter the name of the room');
-            const password = prompt('Enter room password');
-            if (roomName && password) {
-                const postData = {
-                    name: roomName,
-                    password: password
-                };
+<script>
+    document.getElementById('createRoom').addEventListener('click', function() {
+        document.getElementById('myModal').style.display = "block";
+    });
 
-                fetch(`http://localhost:8080/room/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Save the token for later use
-                    const token = data.token;
-                    const room = data.room.name;
-                    const id = data.room.id;
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('room', room);
-                    localStorage.setItem('id', id);
-                    localStorage.setItem('admin', true);
+    document.getElementsByClassName('close')[0].addEventListener('click', function() {
+        document.getElementById('myModal').style.display = "none";
+    });
 
-                    // Redirect to the room or perform any other action
-                    console.log('Created room:', data.room);
-                    window.location.href = "/accenture/room.html";
-                })
-                .catch(error => console.error('Error creating room:', error));
-            }
+    const radioButtons = document.querySelectorAll('input[name="roomType"]');
+    const passwordField = document.getElementById('passwordField');
+    radioButtons.forEach(button => {
+        button.addEventListener('change', function() {
+            passwordField.style.display = this.value === 'private' ? 'block' : 'none';
+        });
+    });
+
+    document.getElementById('roomForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const roomName = document.getElementById('roomName').value;
+        const roomType = document.querySelector('input[name="roomType"]:checked').value;
+        const roomPassword = roomType === 'private' ? document.getElementById('roomPassword').value : '';
+        const postData = {
+            name: roomName,
+            type: roomType,
+            password: roomPassword
+        };
+
+        fetch('http://localhost:8080/room/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(postData)
+        }).then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        }).then(data => {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('room', data.room.name);
+            localStorage.setItem('id', data.room.id);
+            localStorage.setItem('admin', true);
+            console.log('Created room:', data.room);
+            window.location.href = "/accenture/room.html";
+        }).catch(error => {
+            console.error('Error creating room:', error);
+        });
+        document.getElementById('myModal').style.display = "none";
+    });
+
+function joinRoom(roomId) {
+const username = prompt('Enter your username:');
+if (!username) {
+    alert('Username is required');
+    return; // Exit if no username is entered
+}
+
+fetch(`http://localhost:8080/room/info/${roomId}`)
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Failed to fetch room info');
+    }
+    return response.json();
+})
+.then(roomInfo => {
+    if (roomInfo.type === 'private') {
+        const password = prompt('Enter your password for this private room:');
+        if (!password) {
+
+            throw new Error('Password required!'); // prevent further execution
         }
 
-        // Function to join a room
-        function joinRoom(roomId) {
-            const username = prompt('Enter your username:');
-            const password = prompt('Enter the room password:');
+        return makeRoomRequest(roomId, username, password);
+    } else {
+        return makeRoomRequest(roomId, username); // no password for public rooms
+    }
+})
+.then(data => {
+    if (!data) throw new Error('No response data available');
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('room', data.room.name);
+    localStorage.setItem('id', data.room.id);
+    console.log('Joined room:', data.room);
+    window.location.href = "/accenture/room.html";
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert(error.message);  // Provide user feedback on the error
+});
+}
 
-            if (username && password) {
-                const postData = {
-                    name: username,
-                    password: password
-                };
+function makeRoomRequest(roomId, username, password = '') {
+const postData = {
+    name: username,
+    password: password
+};
+return fetch(`http://localhost:8080/room/${roomId}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(postData)
+}).then(response => {
+    if (!response.ok) {
+        throw new Error('Wrong password!');
+    }
+    return response.json();
+});
+}
 
-                fetch(`http://localhost:8080/room/${roomId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Save the token for later use
-                    const token = data.token;
-                    const room = data.room.name;
-                    const id = data.room.id;
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('room', room);
-                    localStorage.setItem('id', id);
-                    localStorage.setItem('username', username);
 
-                    // Redirect to the room or perform any other action
-                    console.log('Joined room:', data.room);
-                    window.location.href = "/accenture/room.html";
-                })
-                .catch(error => console.error('Error joining room:', error));
-            }
-        }
 
-        // Fetch data from the endpoint
-        fetch('http://localhost:8080/room/')
-            .then(response => response.json())
-            .then(data => {
-                // Iterate over each room object and create list item with join button
-                data.forEach(room => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `Room ID: ${room.id}, Name: ${room.name}, Password: ${room.password ?? 'None'}`;
-                    const joinButton = document.createElement('button');
-                    joinButton.textContent = 'Join';
-                    joinButton.addEventListener('click', () => joinRoom(room.id));
-                    listItem.appendChild(joinButton);
-                    roomList.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error('Error fetching room list:', error));
-
-        createRoomButton.addEventListener('click', createRoom);
-    </script>
+    fetch('http://localhost:8080/room/')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(room => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Room ID: ${room.id}, Name: ${room.name}, Type: ${room.type}, Password: ${room.password ?? 'None'}`;
+            const joinButton = document.createElement('button');
+            joinButton.textContent = 'Join';
+            joinButton.addEventListener('click', () => joinRoom(room.id));
+            listItem.appendChild(joinButton);
+            document.getElementById('roomList').appendChild(listItem);
+        });
+    }).catch(error => {
+        console.error('Error fetching room list:', error);
+    });
+</script>
 </body>
 </html>

@@ -38,21 +38,55 @@ public class RoomController {
 @Autowired
 RoomRepository repository;
     private final AuthenticationService service;
+    @GetMapping("/info/{roomId}")
+    public ResponseEntity<Room> getRoomInfo(@PathVariable Long roomId) {
+        return repository.findById(roomId)
+                .map(room -> ResponseEntity.ok(room))
+                .orElse(ResponseEntity.notFound().build());
+    }
     @GetMapping("/")
     public ResponseEntity index() {
         List<Room> room=repository.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(room);
     }
     @PostMapping("/{roomId}")
-    public ResponseEntity EnterRoom(@PathVariable long roomId, @RequestBody Map<String, Object> requestBody) {
-        String name = requestBody.get("name").toString();
-        String password = requestBody.get("password").toString();
-        Optional<Room> room = repository.findById(roomId);
-        if(room.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("");
+    public ResponseEntity<?> enterRoom(@PathVariable long roomId, @RequestBody Map<String, Object> requestBody) {
+        String name = (String) requestBody.get("name");  // allow null values, check for empty later
+        String password = (String) requestBody.get("password");  // allows null for public rooms
+
+
+        if (name == null || name.isEmpty()) {
+            return ResponseEntity.badRequest().body("Name is required.");
+        }
+
+        Optional<Room> roomOptional = repository.findById(roomId);
+        if (!roomOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Room not found.");
+        }
+
+        Room room = roomOptional.get();
+
+        // check password for private rooms
+        if ("private".equals(room.getType())) {
+            if (password == null || password.isEmpty()) {
+                return ResponseEntity.badRequest().body("Password is required for private rooms.");
+            }
+            BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+            if (!bcrypt.matches(password, room.getPassword())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password.");
+            }
+        } else if ("public".equals(room.getType())) {
+            // for public rooms ensure no password is provided
+        }
+
+
         AuthenticationResponse response = service.enterRoom(name, roomId, password);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        if (response == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed.");
+        }
+        return ResponseEntity.ok(response);
     }
+
     @PostMapping("/")
     public ResponseEntity AddRoom(@Valid @RequestBody Room room) {
         BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
