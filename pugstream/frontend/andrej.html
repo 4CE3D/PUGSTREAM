@@ -375,6 +375,7 @@
      <script>
         const gridRooms = document.getElementById("gridRooms");
         const createRoomButton = document.getElementById('createRoom');
+        const searchInput = document.getElementById('input-3338c281-cc9b-89b8-06d7-214135c825d2');
 
         function createRoom() {
             const roomName = prompt('Enter the name of the room');
@@ -398,10 +399,12 @@
                     const token = data.token;
                     const room = data.room.name;
                     const id = data.room.id;
+                    const username = '';
                     localStorage.setItem('token', token);
                     localStorage.setItem('room', room);
                     localStorage.setItem('id', id);
                     localStorage.setItem('admin', true);
+                    localStorage.setItem('username', username);
 
                     // Redirect to the room or perform any other action
                     console.log('Created room:', data.room);
@@ -453,7 +456,7 @@
             .then(data => {
                 data.forEach(room => {
                     const divItem = document.createElement('div');
-                    divItem.innerHTML =`<div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
+                    divItem.innerHTML =`<div class="rooms" style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
                                       <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 30px; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">${room.name}</div>
                                       <img src="https://media.discordapp.net/attachments/1228237867940319243/1230161847953395802/image.png?ex=6632507f&is=661fdb7f&hm=36219ecef5515561af04d76c74c151fa33f7c1ab762914ad6fb106dd4a0573ff&=&format=webp&quality=lossless&width=517&height=523" alt="" style="display: block; flex-shrink: 1; object-fit: contain; opacity: 1; position: relative; border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; border-radius: 5px; width: 100%; height: 100%; flex-grow: 100;">
                                       <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 60px; flex-shrink: 0;">
@@ -469,6 +472,20 @@
             .catch(error => console.error('Error fetching room list:', error));
 
             createRoomButton.addEventListener('click', createRoom);
+            searchInput.addEventListener('input', (e) => {
+                const searchText = e.target.value.toLowerCase();
+                const rooms = gridRooms.getElementsByClassName('rooms');
+                for(let i = 0; i < rooms.length; i++) {
+                    const room = rooms[i];
+                    const roomText = room.querySelector('div').textContent.toLowerCase();
+                    if (roomText.includes(searchText)) {
+                        room.style.display = 'flex';
+                    } else {
+                        room.style.display = 'none';
+                    }
+                }
+            });
+
     </script>
      
     <script src="/react.production.min.js"></script>
