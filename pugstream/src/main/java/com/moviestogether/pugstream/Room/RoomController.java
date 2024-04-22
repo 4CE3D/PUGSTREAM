@@ -68,7 +68,6 @@ RoomRepository repository;
         repository.findById(id);
         Optional<Room> room=repository.findById(id);
         if(room.isEmpty()){return ResponseEntity.status(HttpStatus.NOT_FOUND).body("String not found");}
-        System.out.println(authentication.getPrincipal());
         User principal =(User)authentication.getPrincipal();
         if(principal.getRoom().getId() == room.get().getId() && authentication.getAuthorities().toString().equals("[ADMIN]"))
         {
