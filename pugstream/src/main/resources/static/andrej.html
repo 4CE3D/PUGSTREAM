@@ -20,6 +20,37 @@
         overflow: hidden auto;
       }
 
+      .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+          }
+          .modal-content {
+              background-color: #fefefe;
+              margin: 15% auto; /* 15% from the top and centered */
+              padding: 20px;
+              border: 1px solid #888;
+              width: 80%; /* Could be more or less, depending on screen size */
+          }
+          .close {
+              color: #aaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+          }
+          .close:hover,
+          .close:focus {
+              color: black;
+              text-decoration: none;
+              cursor: pointer;
+          }
+
       img {
         -webkit-user-drag: none;
       }
@@ -370,93 +401,160 @@
               </div>
            </div>
         </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="roomForm">
+                    <p><input type="text" id="roomName" placeholder="Enter the name of the room" required></p>
+                    <p>
+                        <input type="radio" name="roomType" value="public" checked> Public
+                        <input type="radio" name="roomType" value="private"> Private
+                    </p>
+                    <p id="passwordField" style="display:none;"><input type="password" id="roomPassword" placeholder="Enter room password"></p>
+                    <p><button type="submit">Create Room</button></p>
+                </form>
+            </div>
      </div>
 
      <script>
         const gridRooms = document.getElementById("gridRooms");
         const createRoomButton = document.getElementById('createRoom');
+        const searchInput = document.getElementById('input-3338c281-cc9b-89b8-06d7-214135c825d2');
+        const radioButtons = document.querySelectorAll('input[name="roomType"]');
+        const passwordField = document.getElementById('passwordField');
 
-        function createRoom() {
-            const roomName = prompt('Enter the name of the room');
-            const password = prompt('Enter room password');
-            if (roomName && password) {
-                const postData = {
-                    name: roomName,
-                    password: password
-                };
 
-                fetch(`http://localhost:8080/room/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Save the token for later use
-                    const token = data.token;
-                    const room = data.room.name;
-                    const id = data.room.id;
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('room', room);
-                    localStorage.setItem('id', id);
-                    localStorage.setItem('admin', true);
 
-                    // Redirect to the room or perform any other action
-                    console.log('Created room:', data.room);
-                    window.location.href = "/andrejroom.html";
-                })
-                .catch(error => console.error('Error creating room:', error));
-            }
-        }
+        document.getElementById('createRoom').addEventListener('click', function() {
+        document.getElementById('myModal').style.display = "block";
+    });
+        document.getElementsByClassName('close')[0].addEventListener('click', function() {
+        document.getElementById('myModal').style.display = "none";
+    });
+
+    radioButtons.forEach(button => {
+        button.addEventListener('change', function() {
+            passwordField.style.display = this.value === 'private' ? 'block' : 'none';
+        });
+    });
+
+    document.getElementById('roomForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const roomName = document.getElementById('roomName').value;
+    const roomType = document.querySelector('input[name="roomType"]:checked').value;
+    const roomPassword = roomType === 'private' ? document.getElementById('roomPassword').value : '';
+    const postData = {
+        name: roomName,
+        type: roomType,
+        password: roomPassword
+    };
+    fetch(`http://localhost:8080/room/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Save the token for later use
+        const token = data.token;
+        const room = data.room.name;
+        const id = data.room.id;
+        const username = '';
+        localStorage.setItem('token', token);
+        localStorage.setItem('room', room);
+        localStorage.setItem('id', id);
+        localStorage.setItem('admin', true);
+        localStorage.setItem('username', username);
+
+        // Redirect to the room or perform any other action
+        console.log('Created room:', data.room);
+        window.location.href = "/andrejroom.html";
+    })
+    .catch(error => console.error('Error creating room:', error));
+});
+
 
         // Function to join a room
         function joinRoom(roomId) {
             const username = prompt('Enter your username:');
-            const password = prompt('Enter the room password:');
-
-            if (username && password) {
-                const postData = {
-                    name: username,
-                    password: password
-                };
-
-                fetch(`http://localhost:8080/room/${roomId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(postData)
+            if(!username) {
+             alert('Username is required');
+             return;
+             }
+             fetch(`http://localhost:8080/room/info/${roomId}`)
+             .then(response => {
+                if(!response.ok) {
+                    throw new Error('Failed to fetch room info');
+                }
+                return response.json();
                 })
-                .then(response => response.json())
-                .then(data => {
-                    // Save the token for later use
-                    const token = data.token;
-                    const room = data.room.name;
-                    const id = data.room.id;
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('room', room);
-                    localStorage.setItem('id', id);
+                .then(roomInfo => {
+                    if (roomInfo.type === 'private') {
+                        const password = prompt('Enter your password for this private room:');
+                            if (!password) {
 
-                    // Redirect to the room or perform any other action
-                    console.log('Joined room:', data.room);
-                    window.location.href = "/andrejroom.html";
+                                throw new Error('Password required!'); // Prevent further execution
+                             }
+                            return makeRoomRequest(roomId, username, password);
+                    } else {
+                        return makeRoomRequest(roomId, username); // For public rooms, no password needed
+                    }
                 })
-                .catch(error => console.error('Error joining room:', error));
-            }
-        }
+                .catch(error => {
+                console.error('Error:', error);
+                alert(error.message);  // Provide user feedback on the error
+                });
+                }
+
+        function makeRoomRequest(roomId, username, password = '') {
+const postData = {
+    name: username,
+    password: password
+};
+return fetch(`http://localhost:8080/room/${roomId}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(postData)
+}).then(response => {
+    if (!response.ok) {
+        throw new Error('Wrong password!');
+    }
+    return response.json();
+})
+.then(data => {
+        // Save the token for later use
+        const token = data.token;
+        const room = data.room.name;
+        const id = data.room.id;
+
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('room', room);
+        localStorage.setItem('id', id);
+        localStorage.setItem('admin', false);
+        localStorage.setItem('username', username);
+
+
+        // Redirect to the room or perform any other action
+        console.log('Created room:', data.room);
+        window.location.href = "/andrejroom.html";
+    })
+    .catch(error => console.error('Error creating room:', error));
+;
+}
 
         fetch('http://localhost:8080/room/')
             .then(response => response.json())
             .then(data => {
                 data.forEach(room => {
                     const divItem = document.createElement('div');
-                    divItem.innerHTML =`<div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
+                    divItem.innerHTML =`<div class="rooms" style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
                                       <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 30px; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">${room.name}</div>
                                       <img src="https://media.discordapp.net/attachments/1228237867940319243/1230161847953395802/image.png?ex=6632507f&is=661fdb7f&hm=36219ecef5515561af04d76c74c151fa33f7c1ab762914ad6fb106dd4a0573ff&=&format=webp&quality=lossless&width=517&height=523" alt="" style="display: block; flex-shrink: 1; object-fit: contain; opacity: 1; position: relative; border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; border-radius: 5px; width: 100%; height: 100%; flex-grow: 100;">
                                       <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 60px; flex-shrink: 0;">
-                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; align-self: center; white-space: pre-wrap; overflow-wrap: anywhere;">${room.password ? 'Private' : 'Public'}</div>
+                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; align-self: center; white-space: pre-wrap; overflow-wrap: anywhere;">${room.type}</div>
                                       </div>
                                       <button onclick="joinRoom(${room.id});" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 3px; padding: 0px 24px; min-width: 80px; width: 100%; height: 40px; flex-shrink: 0;">Enter Room</button>
                                    </div>`;
@@ -468,6 +566,20 @@
             .catch(error => console.error('Error fetching room list:', error));
 
             createRoomButton.addEventListener('click', createRoom);
+
+            searchInput.addEventListener('input', (e) => {
+                const searchText = e.target.value.toLowerCase();
+                const rooms = gridRooms.getElementsByClassName('rooms');
+                for(let i = 0; i < rooms.length; i++) {
+                    const room = rooms[i];
+                    const roomText = room.querySelector('div').textContent.toLowerCase();
+                    if (roomText.includes(searchText)) {
+                        room.style.display = 'flex';
+                    } else {
+                        room.style.display = 'none';
+                    }
+                }
+            });
     </script>
      
     <script src="/react.production.min.js"></script>
@@ -498,7 +610,7 @@
         });
     </script>
   
-<div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></body></html>
+<div style="width: 100%; height: 100%; top: 0px; left: 0px; overflow: hidden; position: fixed; z-index: 1000000000; pointer-events: none;"></div></div></body></html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
