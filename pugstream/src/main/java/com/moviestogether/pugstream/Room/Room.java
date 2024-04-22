@@ -25,6 +25,7 @@ public class Room {
     @NotNull(message="Name is mandatory")
     @NotBlank(message="Name is mandatory")
     private String name;
+    private String type;
     private String password;
 
     @OneToMany(

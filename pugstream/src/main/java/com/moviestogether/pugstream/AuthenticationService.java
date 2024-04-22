@@ -11,11 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.moviestogether.pugstream.Room.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CrossOrigin(maxAge = 3600)
 public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final RoomRepository roomRepository;
@@ -25,29 +27,52 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse enterRoom(String name, long roomId, String password) {
-
-        Optional<Room> room = roomRepository.findById(roomId);
-        if(room.isEmpty())
+        Optional<Room> roomOptional = roomRepository.findById(roomId);
+        if (!roomOptional.isPresent()) {
             return new AuthenticationResponse();
-        BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
-        if(bcrypt.matches(password,room.get().getPassword()))
-     //   if(password.equals(room.get().getPassword()))
-        {
+        }
+
+        Room room = roomOptional.get();
+
+        // check if room is private and password is correct
+        if ("private".equals(room.getType())) {
+            BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+            if (!bcrypt.matches(password, room.getPassword())) {
+                return new AuthenticationResponse();
+            }
+
+            // creating user session and generating token
             User user = new User();
             user.setName(name);
             user.setRole(Role.USER);
-            user.setRoom(room.get());
+            user.setRoom(room);
             userRepository.save(user);
 
-            var jwtToken = jwtService.generateToken(user);
+            String jwtToken = jwtService.generateToken(user);
 
             return AuthenticationResponse.builder()
                     .token(jwtToken)
-                    .room(room.get())
+                    .room(room)
                     .build();
         }
 
-        return new AuthenticationResponse();
+        // room is public (no password check needed)
+        if ("public".equals(room.getType())) {
+            User user = new User();
+            user.setName(name);
+            user.setRole(Role.USER);
+            user.setRoom(room);
+            userRepository.save(user);
+
+            String jwtToken = jwtService.generateToken(user);
+
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .room(room)
+                    .build();
+        }
+
+        return new AuthenticationResponse();  // if room type isn't 'private' or 'public'
     }
 
     public AuthenticationResponse createRoom(Room room) {

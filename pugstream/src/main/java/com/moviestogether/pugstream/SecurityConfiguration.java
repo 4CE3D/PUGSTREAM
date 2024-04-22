@@ -27,7 +27,7 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/room/", "/room/{roomId}", "/stomp-endpoint", "/andrej.html", "/andrejroom.html", "/**")
+                .requestMatchers("/room/", "/room/{roomId}", "/stomp-endpoint", "/andrej.html", "/andrejroom.html", "/**", ,"/room/info/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
