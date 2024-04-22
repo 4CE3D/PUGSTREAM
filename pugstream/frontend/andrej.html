@@ -398,6 +398,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -415,7 +416,49 @@
         </div>
     </div>
 
-</div>
+     </div>
+
+     <script>
+        const gridRooms = document.getElementById("gridRooms");
+        const createRoomButton = document.getElementById('createRoom');
+        const searchInput = document.getElementById('input-3338c281-cc9b-89b8-06d7-214135c825d2');
+
+        function createRoom() {
+            const roomName = prompt('Enter the name of the room');
+            const password = prompt('Enter room password');
+            if (roomName && password) {
+                const postData = {
+                    name: roomName,
+                    password: password
+                };
+
+                fetch(`http://localhost:8080/room/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Save the token for later use
+                    const token = data.token;
+                    const room = data.room.name;
+                    const id = data.room.id;
+                    const username = '';
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('room', room);
+                    localStorage.setItem('id', id);
+                    localStorage.setItem('admin', true);
+                    localStorage.setItem('username', username);
+
+                    // Redirect to the room or perform any other action
+                    console.log('Created room:', data.room);
+                    window.location.href = "/accenture/andrejroom.html";
+                })
+                .catch(error => console.error('Error creating room:', error));
+            }
+        }
 
 <script>
     const gridRooms = document.getElementById("gridRooms");
@@ -464,6 +507,69 @@
             window.location.href = "/accenture/room.html";
         }).catch(error => {
             console.error('Error creating room:', error);
+
+        fetch('http://localhost:8080/room/')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(room => {
+                    const divItem = document.createElement('div');
+                    divItem.innerHTML =`<div class="rooms" style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; background-color: rgb(255, 248, 237); border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; padding-right: 0px; margin: 15px 5px; border-radius: 5px; width: 175px; height: 275px; flex-shrink: 0;">
+                                      <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 30px; flex-shrink: 0; white-space: pre-wrap; overflow-wrap: anywhere;">${room.name}</div>
+                                      <img src="https://media.discordapp.net/attachments/1228237867940319243/1230161847953395802/image.png?ex=6632507f&is=661fdb7f&hm=36219ecef5515561af04d76c74c151fa33f7c1ab762914ad6fb106dd4a0573ff&=&format=webp&quality=lossless&width=517&height=523" alt="" style="display: block; flex-shrink: 1; object-fit: contain; opacity: 1; position: relative; border-width: 2px; border-color: rgb(0, 0, 0); border-style: solid; border-radius: 5px; width: 100%; height: 100%; flex-grow: 100;">
+                                      <div style="display: flex; position: relative; flex-direction: column; align-items: flex-start; opacity: 1; width: 100%; height: 60px; flex-shrink: 0;">
+                                         <div class="ndl-visual-text " style="font-family: Roboto-Regular; font-size: 16px; color: rgb(0, 0, 0); line-height: 150%; text-transform: none; position: relative; display: flex; opacity: 1; text-align: center; justify-content: center; align-items: center; width: 100%; height: 100%; flex-shrink: 1; flex-grow: 100; align-self: center; white-space: pre-wrap; overflow-wrap: anywhere;">${room.password ? 'Private' : 'Public'}</div>
+                                      </div>
+                                      <button onclick="joinRoom(${room.id});" class="ndl-controls-button" style="font-family: Roboto-Medium; font-size: 14px; color: rgb(255, 255, 255); line-height: 120%; text-transform: none; background-color: rgb(88, 54, 245); position: relative; opacity: 1; border-radius: 3px; padding: 0px 24px; min-width: 80px; width: 100%; height: 40px; flex-shrink: 0;">Enter Room</button>
+                                   </div>`;
+
+                    
+                    gridRooms.appendChild(divItem);
+                });
+            })
+            .catch(error => console.error('Error fetching room list:', error));
+
+            createRoomButton.addEventListener('click', createRoom);
+            searchInput.addEventListener('input', (e) => {
+                const searchText = e.target.value.toLowerCase();
+                const rooms = gridRooms.getElementsByClassName('rooms');
+                for(let i = 0; i < rooms.length; i++) {
+                    const room = rooms[i];
+                    const roomText = room.querySelector('div').textContent.toLowerCase();
+                    if (roomText.includes(searchText)) {
+                        room.style.display = 'flex';
+                    } else {
+                        room.style.display = 'none';
+                    }
+                }
+            });
+
+    </script>
+     
+    <script src="/react.production.min.js"></script>
+    <script src="/react-dom.production.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+
+    <script type="application/javascript">
+      window.__noodl_modules = [];
+      window.Noodl = {
+        defineModule: function (m) {
+          window.__noodl_modules.push(m);
+        },
+        deployed: false,
+        Env: {}
+      };
+    </script>
+
+    <script type="text/javascript" src="/noodl_modules/noodl-markdown/index.js"></script>
+
+
+    <script src="/noodl.viewer.js"></script>
+    <script type="application/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const root = document.getElementById('root');
+            window.Noodl._viewerReact.render(root, __noodl_modules, { isLocal: true });
         });
         document.getElementById('myModal').style.display = "none";
     });
