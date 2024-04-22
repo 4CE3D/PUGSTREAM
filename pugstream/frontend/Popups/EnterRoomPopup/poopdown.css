@@ -1,0 +1,79 @@
+.popup-overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.498);
+    opacity: 1;
+  }
+  
+  .popup-content {
+    /* Styles for the white content box */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Adjust width as needed */
+    background-color: rgb(206, 206, 206);
+    border-radius: 10px;
+    padding: 20px; /* Adjust padding as needed */
+  }
+  
+  .popup-body {
+    /* Styles for the inner white block */
+    background-color: rgb(255, 255, 255);
+    padding: 0; /* Remove default padding */
+  }
+  
+  .popup-title {
+    /* Styles for the title */
+    font-family: Roboto-Bold; /* Replace with desired font */
+    font-size: 18px; 
+    color: rgb(0, 0, 0);
+    line-height: 150%;
+    text-transform: none;
+    margin-top: 13px;
+    margin-left: 8px;
+  }
+  
+  .input-group {
+    margin-top: 25px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  #username {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .enter-button,
+  .cancel-button {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .enter-button {
+    background-color: rgb(88, 54, 245);
+  }
+  
+  .cancel-button {
+    background-color: rgb(247, 90, 79);
+  }
+  
