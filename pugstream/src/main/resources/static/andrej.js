@@ -19,7 +19,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe("/topic/commands/"+id, function (greeting) {
+        stompClient.subscribe("/topic/commands/"+ id, function (greeting) {
             showGreeting(JSON.parse(greeting.body));
         });
     });

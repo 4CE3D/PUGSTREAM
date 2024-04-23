@@ -14,7 +14,7 @@
 	<name>pugstream</name>
 	<description>Accenture bootcamp project for streaming movies</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

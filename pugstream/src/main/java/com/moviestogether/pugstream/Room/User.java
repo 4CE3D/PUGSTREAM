@@ -22,6 +22,7 @@ public class User implements UserDetails {
     private Integer id;
     private String name;
     private Role role;
+    private String avatar;
 
     @ManyToOne
     @JoinColumn(name = "fk_room")
